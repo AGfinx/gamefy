@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GAMEFY - Chapter 2</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Correct CSS Paths -->
+    <link rel="stylesheet" href="gamefy-styles.css">
+    <link rel="stylesheet" href="chapter-styles.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <i class="fas fa-gamepad"></i>
+            <span>GAMEFY</span>
+        </div>
+
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="learn.html" class="nav-link active">Learn</a></li>
+                <li><a href="games.html" class="nav-link">Games</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+            </ul>
+        </nav>
+
+        <div class="user-section">
+            <div class="streak-display">
+                <i class="fas fa-fire"></i>
+                <span>5</span>
+            </div>
+
+            <div class="gems-display">
+                <i class="fas fa-gem"></i>
+                <span>250</span>
+            </div>
+
+            <div class="user-avatar">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+
+        <div class="mobile-menu-toggle">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</header>
+
+<main class="chapter-content">
+    <div class="chapter-card">
+
+        <h1>Chapter 2: Variables and Data Types</h1>
+
+        <div id="lesson-container">
+
+            <!-- STEP 1 -->
+            <div class="lesson-step active">
+                <p>
+                    A variable is used to store data in a program. 
+                    It works like a container that holds information.
+                    In Python, you create a variable using the = symbol to assign a value.
+                </p>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>What is a variable in Python?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) A function that prints output</button>
+                    <button onclick="checkAnswer(this, true)">B) A container used to store data</button>
+                    <button onclick="checkAnswer(this, false)">C) A type of error</button>
+                    <button onclick="checkAnswer(this, false)">D) A special keyword</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="lesson-step">
+                <p>
+                    Python does not require you to declare a data type.
+                    You simply assign a value directly.
+                    Example: age = 18.
+                    Here, age is the variable name and 18 is the stored value.
+                </p>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>In the statement age = 18, what is "age"?</p>
+
+                    <button onclick="checkAnswer(this, true)">A) Variable name</button>
+                    <button onclick="checkAnswer(this, false)">B) Data type</button>
+                    <button onclick="checkAnswer(this, false)">C) Function</button>
+                    <button onclick="checkAnswer(this, false)">D) Operator</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="lesson-step">
+                <p>
+                    Python has rules for naming variables.
+                    A name must start with a letter or underscore.
+                    It cannot start with a number and is case-sensitive.
+                </p>
+            </div>
+
+            <!-- STEP 6 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>Which of the following is a valid variable name?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) 2name</button>
+                    <button onclick="checkAnswer(this, true)">B) student_name</button>
+                    <button onclick="checkAnswer(this, false)">C) @value</button>
+                    <button onclick="checkAnswer(this, false)">D) class</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 7 -->
+            <div class="lesson-step">
+                <p>
+                    Data types define the kind of value stored in a variable.
+                    Common types include int (whole numbers),
+                    float (decimals), str (text), and bool (True or False).
+                </p>
+            </div>
+
+            <!-- STEP 8 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>Which data type stores text?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) int</button>
+                    <button onclick="checkAnswer(this, false)">B) float</button>
+                    <button onclick="checkAnswer(this, true)">C) str</button>
+                    <button onclick="checkAnswer(this, false)">D) bool</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <button id="nextBtn" onclick="nextStep()" class="next-btn">Next</button>
+
+    </div>
+</main>
+
+<!-- Correct Script Path -->
+<script src="auth.js"></script>
+<script src="chapter-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GAMEFY - Chapter 1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="gamefy-styles.css">
+    <link rel="stylesheet" href="chapter-styles.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <i class="fas fa-gamepad"></i>
+            <span>GAMEFY</span>
+        </div>
+
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="learn.html" class="nav-link active">Learn</a></li>
+                <li><a href="games.html" class="nav-link">Games</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="chapter-content">
+    <div class="chapter-card">
+
+        <h1>Chapter 1: Introduction to Python</h1>
+
+        <div id="lesson-container">
+
+            <!-- STEP 1 -->
+            <div class="lesson-step active">
+                <p>
+                    Python is a programming language used to build software and give instructions to a computer.
+                    It is simple, readable, and beginner-friendly.
+                </p>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>Why is Python beginner-friendly?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) It uses complex symbols</button>
+                    <button onclick="checkAnswer(this, true)">B) It has simple readable syntax</button>
+                    <button onclick="checkAnswer(this, false)">C) It only works offline</button>
+                    <button onclick="checkAnswer(this, false)">D) It deletes errors automatically</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="lesson-step">
+                <p>
+                    Python is widely used in web development, artificial intelligence,
+                    automation, and game development.
+                </p>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>How does Python execute code?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) All at once</button>
+                    <button onclick="checkAnswer(this, true)">B) Line by line</button>
+                    <button onclick="checkAnswer(this, false)">C) It skips errors</button>
+                    <button onclick="checkAnswer(this, false)">D) Only online</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="lesson-step">
+                <p>
+                    Python is case-sensitive. That means uppercase and lowercase letters are treated differently.
+                </p>
+            </div>
+
+        </div>
+
+        <button id="nextBtn" onclick="nextStep()" class="next-btn">Next</button>
+
+    </div>
+</main>
+
+<script src="auth.js"></script>
+<script src="chapter-script.js"></script>
+</body>
+</html>

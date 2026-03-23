@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GAMEFY – Learn Python</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="gamefy-styles.css">
+    <style>
+        body { background-color:#1cb0f6; }
+
+        .chapters-section {
+            width:100%; padding:3rem 1rem;
+            background:linear-gradient(135deg,#58cc02,#1cb0f6);
+            min-height:calc(100vh - 80px);
+            display:flex; flex-direction:column; align-items:center;
+            position:relative; overflow:hidden;
+        }
+        .chapters-section::before {
+            content:''; position:absolute; inset:0; pointer-events:none;
+            background: radial-gradient(circle at 20% 30%,rgba(255,255,255,.15) 0%,transparent 30%),
+                        radial-gradient(circle at 80% 70%,rgba(255,255,255,.15) 0%,transparent 30%);
+        }
+
+        .learn-title {
+            background-color:white; color:#1cb0f6;
+            padding:20px 40px; border-radius:12px;
+            font-size:2.8rem; font-weight:800; margin-bottom:1rem;
+            text-align:center; box-shadow:0 8px 20px rgba(0,0,0,.15); z-index:2;
+        }
+
+        /* Progress bar under title */
+        .learn-progress-wrap {
+            background:rgba(255,255,255,.3); border-radius:50px;
+            width:100%; max-width:500px; height:18px; margin-bottom:2.5rem;
+            overflow:hidden; z-index:2;
+        }
+        .learn-progress-fill {
+            height:100%; border-radius:50px;
+            background:white; transition:width .6s ease;
+        }
+        .learn-progress-label {
+            color:white; font-weight:800; font-size:.95rem;
+            margin-top:-1.8rem; margin-bottom:2rem; z-index:2;
+        }
+
+        .chapter-map {
+            position:relative; display:flex; flex-direction:column;
+            align-items:center; gap:3rem; width:100%; max-width:1000px;
+            padding:2rem 0; z-index:2;
+        }
+
+        .path-line {
+            position:absolute; top:0; bottom:0; width:8px;
+            background:linear-gradient(to bottom,#ffd966,#ffb347,#ff8c42);
+            left:50%; transform:translateX(-50%); z-index:0;
+            border-radius:4px; box-shadow:0 0 20px rgba(255,200,0,.6);
+            animation:glow 2s ease-in-out infinite;
+        }
+        @keyframes glow {
+            0%,100%{opacity:.8;box-shadow:0 0 20px rgba(255,200,0,.6)}
+            50%{opacity:1;box-shadow:0 0 30px rgba(255,200,0,.9)}
+        }
+
+        .chapter {
+            width:180px; height:180px; border-radius:50%;
+            background:linear-gradient(145deg,#ffd966,#ffb347);
+            color:#2d3e50; font-weight:800; font-size:2rem;
+            text-align:center; display:flex; flex-direction:column;
+            justify-content:center; text-decoration:none;
+            box-shadow:0 10px 0 #c96f0d,0 20px 30px rgba(0,0,0,.3);
+            transition:all .3s cubic-bezier(.175,.885,.32,1.275);
+            position:relative; z-index:1; border:4px solid white; line-height:1.2;
+            animation:floatChapter 3s ease-in-out infinite;
+        }
+        .chapter span { font-size:1rem; font-weight:600; padding:0 15px; display:block; margin-top:5px; color:#1a2b3c; }
+        .chapter:hover { transform:translateY(-10px) scale(1.05); box-shadow:0 15px 0 #c96f0d,0 25px 40px rgba(0,0,0,.4); }
+
+        /* Completed style */
+        .chapter.completed {
+            background:linear-gradient(145deg,#89e219,#58cc02);
+            box-shadow:0 10px 0 #3f8c00,0 20px 30px rgba(0,0,0,.3);
+        }
+        .chapter.completed .ch-check {
+            position:absolute; top:-10px; right:-10px;
+            width:38px; height:38px; background:#ffc800;
+            border-radius:50%; border:3px solid white;
+            display:flex; align-items:center; justify-content:center;
+            font-size:1.1rem; font-weight:bold;
+        }
+
+        /* Connector lines */
+        .chapter.left::after {
+            content:''; position:absolute; top:50%; right:-60px;
+            width:60px; height:4px;
+            background:linear-gradient(90deg,#ffb347,#ffd966);
+            transform:translateY(-50%); border-radius:2px; z-index:-1;
+        }
+        .chapter.right::after {
+            content:''; position:absolute; top:50%; left:-60px;
+            width:60px; height:4px;
+            background:linear-gradient(90deg,#ffd966,#ffb347);
+            transform:translateY(-50%); border-radius:2px; z-index:-1;
+        }
+
+        .chapter.left  { align-self:flex-start; margin-left:10%; }
+        .chapter.right { align-self:flex-end;   margin-right:10%; }
+
+        @keyframes floatChapter {
+            0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)}
+        }
+        .chapter:nth-child(odd)  { animation-delay:.2s; }
+        .chapter:nth-child(even) { animation-delay:.6s; }
+
+        @media(max-width:768px) {
+            .learn-title { font-size:1.8rem; padding:14px 24px; }
+            .chapter { width:140px; height:140px; font-size:1.5rem; }
+            .chapter span { font-size:.8rem; }
+            .chapter.left  { margin-left:5%; }
+            .chapter.right { margin-right:5%; }
+            .chapter.left::after  { right:-30px; width:30px; }
+            .chapter.right::after { left:-30px;  width:30px; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <div class="logo"><i class="fas fa-gamepad"></i><span>GAMEFY</span></div>
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="Learn.html"  class="nav-link active">Learn</a></li>
+                <li><a href="games.html" class="nav-link">Games</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="profile.html" class="nav-link">Profile</a></li>
+            </ul>
+        </nav>
+        <div class="user-section">
+            <div class="streak-display"><i class="fas fa-fire"></i><span id="hdr-streak">0</span></div>
+            <div class="gems-display"><i class="fas fa-gem"></i><span id="hdr-gems">0</span></div>
+            <div class="user-avatar" id="hdr-avatar" onclick="window.location.href='profile.html'">🐍</div>
+        </div>
+        <div class="mobile-menu-toggle"><span></span><span></span><span></span></div>
+    </div>
+</header>
+
+<main class="main-content" style="flex-direction:column;min-height:auto;">
+    <section class="chapters-section">
+        <h1 class="learn-title">🐍 Python Learning Path</h1>
+
+        <div class="learn-progress-wrap">
+            <div class="learn-progress-fill" id="learn-prog-fill" style="width:0%"></div>
+        </div>
+        <div class="learn-progress-label" id="learn-prog-label">0 / 13 chapters completed</div>
+
+        <div class="chapter-map">
+            <div class="path-line"></div>
+
+            <a href="chapter1.html"  class="chapter left"  data-ch="1">1<br><span>Intro to Python</span></a>
+            <a href="chapter2.html"  class="chapter right" data-ch="2">2<br><span>Variables & Data Types</span></a>
+            <a href="chapter3.html"  class="chapter left"  data-ch="3">3<br><span>Input & Output</span></a>
+            <a href="chapter4.html"  class="chapter right" data-ch="4">4<br><span>Operators</span></a>
+            <a href="chapter5.html"  class="chapter left"  data-ch="5">5<br><span>Conditional Statements</span></a>
+            <a href="chapter6.html"  class="chapter right" data-ch="6">6<br><span>Loops</span></a>
+            <a href="chapter7.html"  class="chapter left"  data-ch="7">7<br><span>Strings</span></a>
+            <a href="chapter8.html"  class="chapter right" data-ch="8">8<br><span>Lists</span></a>
+            <a href="chapter9.html"  class="chapter left"  data-ch="9">9<br><span>Tuples & Sets</span></a>
+            <a href="chapter10.html" class="chapter right" data-ch="10">10<br><span>Dictionaries</span></a>
+            <a href="chapter11.html" class="chapter left"  data-ch="11">11<br><span>Functions</span></a>
+            <a href="chapter12.html" class="chapter right" data-ch="12">12<br><span>Modules & Libraries</span></a>
+            <a href="chapter13.html" class="chapter left"  data-ch="13">13<br><span>File Handling</span></a>
+        </div>
+    </section>
+</main>
+
+<script src="auth.js"></script>
+<script src="gamefy-script.js"></script>
+<script>
+    requireLogin();
+    const user = getCurrentUser();
+
+    // Header
+    document.getElementById("hdr-streak").textContent = user.streak;
+    document.getElementById("hdr-gems").textContent   = user.gems;
+    document.getElementById("hdr-avatar").textContent = user.avatar;
+
+    // Mark completed chapters
+    const completed = user.completedChapters;
+    document.querySelectorAll(".chapter").forEach(ch => {
+        const num = parseInt(ch.dataset.ch);
+        if (completed.includes(num)) {
+            ch.classList.add("completed");
+            // Add checkmark badge
+            const check = document.createElement("span");
+            check.className = "ch-check";
+            check.textContent = "✓";
+            ch.appendChild(check);
+        }
+    });
+
+    // Progress bar
+    const pct = Math.round((completed.length / 13) * 100);
+    document.getElementById("learn-prog-fill").style.width = pct + "%";
+    document.getElementById("learn-prog-label").textContent = completed.length + " / 13 chapters completed";
+</script>
+</body>
+</html>

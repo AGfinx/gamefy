@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GAMEFY - Chapter 3</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="gamefy-styles.css">
+    <link rel="stylesheet" href="chapter-styles.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <i class="fas fa-gamepad"></i>
+            <span>GAMEFY</span>
+        </div>
+
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="learn.html" class="nav-link active">Learn</a></li>
+                <li><a href="games.html" class="nav-link">Games</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="chapter-content">
+    <div class="chapter-card">
+
+        <h1>Chapter 3: Input and Output</h1>
+
+        <div id="lesson-container">
+
+            <!-- STEP 1 -->
+            <div class="lesson-step active">
+                <p>
+                    The <code>input()</code> function is used to take information from the user while the program is running.
+                    Whatever the user types is stored as text by default.
+                    This allows programs to become interactive instead of showing only fixed output.
+                </p>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>What does the <code>input()</code> function do?</p>
+
+                    <button onclick="checkAnswer(this, true)">A) Takes input from the user</button>
+                    <button onclick="checkAnswer(this, false)">B) Displays output</button>
+                    <button onclick="checkAnswer(this, false)">C) Deletes variables</button>
+                    <button onclick="checkAnswer(this, false)">D) Stops execution</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="lesson-step">
+                <p>
+                    Type conversion means changing one data type into another.
+                    Since <code>input()</code> stores values as text, we often convert them into integers or decimals.
+                    Functions like <code>int()</code> and <code>float()</code> help us perform mathematical calculations correctly.
+                </p>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>Why do we use <code>int()</code> after <code>input()</code>?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) To print output</button>
+                    <button onclick="checkAnswer(this, true)">B) To convert text into numbers</button>
+                    <button onclick="checkAnswer(this, false)">C) To delete text</button>
+                    <button onclick="checkAnswer(this, false)">D) To stop program</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="lesson-step">
+                <p>
+                    A simple input-output program takes user data, processes it, and shows a result.
+                    For example, a program can ask for a name and display a welcome message.
+                    This makes programs dynamic and user-friendly.
+                </p>
+            </div>
+
+            <!-- STEP 6 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>What is the purpose of a simple input-output program?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) To avoid using variables</button>
+                    <button onclick="checkAnswer(this, true)">B) To take input and show output</button>
+                    <button onclick="checkAnswer(this, false)">C) To print only numbers</button>
+                    <button onclick="checkAnswer(this, false)">D) To remove errors</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 7 -->
+            <div class="lesson-step">
+                <p>
+                    Python allows printing multiple values in one line using commas inside <code>print()</code>.
+                    Each value is separated automatically with a space.
+                    This makes output formatting easier and cleaner.
+                </p>
+            </div>
+
+            <!-- STEP 8 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>How do we print multiple values in Python?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) Using colon</button>
+                    <button onclick="checkAnswer(this, true)">B) Using comma</button>
+                    <button onclick="checkAnswer(this, false)">C) Using slash</button>
+                    <button onclick="checkAnswer(this, false)">D) Using semicolon</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <button id="nextBtn" onclick="nextStep()" class="next-btn">Next</button>
+
+    </div>
+</main>
+<script src="auth.js"></script>
+<script src="chapter-script.js"></script>
+</body>
+</html>

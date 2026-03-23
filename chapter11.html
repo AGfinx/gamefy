@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GAMEFY - Chapter 11</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="gamefy-styles.css">
+    <link rel="stylesheet" href="chapter-styles.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <i class="fas fa-gamepad"></i>
+            <span>GAMEFY</span>
+        </div>
+
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="learn.html" class="nav-link active">Learn</a></li>
+                <li><a href="games.html" class="nav-link">Games</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="chapter-content">
+    <div class="chapter-card">
+
+        <h1>Chapter 11: Functions</h1>
+
+        <div id="lesson-container">
+
+            <!-- STEP 1 -->
+            <div class="lesson-step active">
+                <p>
+                    A function is a block of code that performs a specific task.
+                    It helps organize programs into smaller and reusable parts.
+                    Instead of writing the same code many times,
+                    we create a function and call it whenever needed.
+                </p>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>Why do we use functions in programming?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) To make programs longer</button>
+                    <button onclick="checkAnswer(this, true)">B) To reuse code and organize programs</button>
+                    <button onclick="checkAnswer(this, false)">C) To remove variables</button>
+                    <button onclick="checkAnswer(this, false)">D) To stop execution</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="lesson-step">
+                <p>
+                    Functions can take inputs called parameters.
+                    These parameters allow a function to work with different values.
+                    A function can also return a value using the return keyword.
+                    The returned value can be stored in a variable.
+                </p>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>What does the return keyword do?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) Prints the result automatically</button>
+                    <button onclick="checkAnswer(this, true)">B) Sends a value back to where the function was called</button>
+                    <button onclick="checkAnswer(this, false)">C) Stops Python completely</button>
+                    <button onclick="checkAnswer(this, false)">D) Deletes parameters</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="lesson-step">
+                <p>
+                    There are different types of functions.
+                    Some functions take parameters.
+                    Some return values.
+                    Some do both.
+                    Python also has built-in functions like print() and len().
+                </p>
+            </div>
+
+            <!-- STEP 6 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>Which is a built-in Python function?</p>
+
+                    <button onclick="checkAnswer(this, true)">A) print()</button>
+                    <button onclick="checkAnswer(this, false)">B) myFunction()</button>
+                    <button onclick="checkAnswer(this, false)">C) start()</button>
+                    <button onclick="checkAnswer(this, false)">D) calculate()</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 7 -->
+            <div class="lesson-step">
+                <p>
+                    Example of a function:
+                    def greet(name):
+                        return "Hello " + name
+                    This function takes a parameter called name
+                    and returns a greeting message.
+                </p>
+            </div>
+
+            <!-- STEP 8 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>In def greet(name), what is "name"?</p>
+
+                    <button onclick="checkAnswer(this, true)">A) A parameter</button>
+                    <button onclick="checkAnswer(this, false)">B) A keyword</button>
+                    <button onclick="checkAnswer(this, false)">C) A loop</button>
+                    <button onclick="checkAnswer(this, false)">D) A condition</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <button id="nextBtn" onclick="nextStep()" class="next-btn">Next</button>
+
+    </div>
+</main>
+<script src="auth.js"></script>
+<script src="chapter-script.js"></script>
+</body>
+</html>

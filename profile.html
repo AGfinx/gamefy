@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAMEFY – Profile</title>
+    <link rel="stylesheet" href="gamefy-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background:#f7f7f7; }
+
+        /* Profile hero */
+        .profile-hero {
+            background:linear-gradient(135deg,#58cc02,#1cb0f6);
+            padding:3rem 2rem 5rem; text-align:center; position:relative;
+        }
+        .avatar-big {
+            width:110px; height:110px; border-radius:50%;
+            background:white; font-size:4rem;
+            display:flex; align-items:center; justify-content:center;
+            margin:0 auto 14px; box-shadow:0 8px 24px rgba(0,0,0,.2);
+            cursor:pointer; transition:.2s; border:4px solid #ffc800;
+        }
+        .avatar-big:hover { transform:scale(1.07); }
+        .profile-hero h1 { font-size:2rem; font-weight:800; color:white; margin-bottom:4px; }
+        .profile-hero .username { color:rgba(255,255,255,.85); font-size:1rem; font-weight:600; }
+        .level-badge {
+            display:inline-block; background:#ffc800; color:#3c3c3c;
+            padding:5px 18px; border-radius:20px; font-weight:800;
+            font-size:.95rem; margin-top:8px;
+        }
+
+        /* Stats row */
+        .stats-row {
+            display:flex; justify-content:center; gap:0; flex-wrap:wrap;
+            background:white; margin:0; box-shadow:0 4px 16px rgba(0,0,0,.1);
+        }
+        .stat-box {
+            flex:1; min-width:110px; padding:18px 12px; text-align:center;
+            border-right:1px solid #f0f0f0;
+        }
+        .stat-box:last-child { border-right:none; }
+        .stat-box .val { font-size:1.8rem; font-weight:800; color:var(--primary-green); display:block; }
+        .stat-box .lbl { font-size:.8rem; color:#888; font-weight:600; }
+
+        /* Content grid */
+        .profile-grid {
+            max-width:960px; margin:2rem auto; padding:0 1.5rem;
+            display:grid; grid-template-columns:1fr 1fr; gap:1.5rem;
+        }
+        @media(max-width:650px) { .profile-grid { grid-template-columns:1fr; } }
+
+        .profile-card {
+            background:white; border-radius:18px; padding:24px;
+            box-shadow:0 4px 16px rgba(0,0,0,.07);
+        }
+        .profile-card h2 {
+            font-size:1.1rem; font-weight:800; color:#3c3c3c;
+            margin-bottom:16px; display:flex; align-items:center; gap:8px;
+        }
+
+        /* XP bar */
+        .xp-bar-wrap { background:#f0f0f0; border-radius:50px; height:14px; overflow:hidden; margin:8px 0; }
+        .xp-fill { height:100%; border-radius:50px;
+            background:linear-gradient(90deg,#58cc02,#89e219); transition:width .6s; }
+        .xp-row { display:flex; justify-content:space-between; font-size:.85rem;
+            font-weight:700; color:#888; }
+
+        /* Edit form */
+        .edit-form { display:flex; flex-direction:column; gap:12px; }
+        .ef-group label { font-size:.85rem; font-weight:700; color:#555; margin-bottom:4px; display:block; }
+        .ef-group input {
+            width:100%; padding:10px 14px; border:2px solid #e8e8e8;
+            border-radius:10px; font-family:'Nunito',sans-serif; font-size:.95rem;
+            transition:.2s; outline:none;
+        }
+        .ef-group input:focus { border-color:var(--primary-blue); }
+        .save-btn {
+            background:linear-gradient(135deg,#58cc02,#89e219);
+            color:white; border:none; padding:11px; border-radius:12px;
+            font-family:'Nunito',sans-serif; font-weight:800; font-size:1rem;
+            cursor:pointer; margin-top:4px; transition:.2s;
+            box-shadow:0 4px 0 #3f8c00;
+        }
+        .save-btn:hover { transform:translateY(-2px); box-shadow:0 6px 0 #3f8c00; }
+
+        /* Avatar picker */
+        .avatar-picker { display:flex; flex-wrap:wrap; gap:10px; }
+        .av-opt {
+            width:48px; height:48px; border-radius:50%; border:3px solid #e8e8e8;
+            background:#f7f7f7; font-size:1.6rem; display:flex; align-items:center;
+            justify-content:center; cursor:pointer; transition:.2s;
+        }
+        .av-opt.selected { border-color:#1cb0f6; background:#e8f7ff; transform:scale(1.15); }
+
+        /* Chapters list */
+        .ch-list { display:flex; flex-wrap:wrap; gap:8px; }
+        .ch-chip {
+            padding:6px 14px; border-radius:20px; font-size:.85rem; font-weight:700;
+            background:#f0fff4; color:var(--primary-green); border:2px solid #c3f7d4;
+        }
+        .ch-chip.locked { background:#f5f5f5; color:#aaa; border-color:#e0e0e0; }
+
+        /* Danger zone */
+        .logout-btn {
+            width:100%; padding:12px; border:none; border-radius:12px;
+            background:#ff4b4b; color:white; font-family:'Nunito',sans-serif;
+            font-weight:800; font-size:1rem; cursor:pointer; transition:.2s;
+            box-shadow:0 4px 0 #c00;
+        }
+        .logout-btn:hover { transform:translateY(-2px); box-shadow:0 6px 0 #c00; }
+
+        .toast {
+            position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+            background:#58cc02; color:white; padding:12px 28px; border-radius:50px;
+            font-weight:800; font-size:1rem; z-index:9999;
+            opacity:0; transition:.3s; pointer-events:none;
+        }
+        .toast.show { opacity:1; }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo"><i class="fas fa-gamepad"></i><span>GAMEFY</span></div>
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="Learn.html" class="nav-link">Learn</a></li>
+                <li><a href="games.html" class="nav-link">Games</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="profile.html" class="nav-link active">Profile</a></li>
+            </ul>
+        </nav>
+        <div class="user-section">
+            <div class="streak-display"><i class="fas fa-fire"></i><span id="hdr-streak">0</span></div>
+            <div class="gems-display"><i class="fas fa-gem"></i><span id="hdr-gems">0</span></div>
+            <div class="user-avatar" id="hdr-avatar">🐍</div>
+        </div>
+        <div class="mobile-menu-toggle"><span></span><span></span><span></span></div>
+    </div>
+</header>
+
+<!-- Profile Hero -->
+<div class="profile-hero">
+    <div class="avatar-big" id="prof-avatar" onclick="scrollToAvatarPicker()">🐍</div>
+    <h1 id="prof-name">Loading...</h1>
+    <div class="username" id="prof-username">@username</div>
+    <div class="level-badge" id="prof-level">Level 1</div>
+</div>
+
+<!-- Stats Row -->
+<div class="stats-row">
+    <div class="stat-box"><span class="val" id="st-xp">0</span><span class="lbl">Total XP</span></div>
+    <div class="stat-box"><span class="val" id="st-streak">0</span><span class="lbl">🔥 Streak</span></div>
+    <div class="stat-box"><span class="val" id="st-gems">0</span><span class="lbl">💎 Gems</span></div>
+    <div class="stat-box"><span class="val" id="st-chapters">0/13</span><span class="lbl">Chapters</span></div>
+    <div class="stat-box"><span class="val" id="st-ach">0</span><span class="lbl">🏆 Badges</span></div>
+</div>
+
+<!-- Grid -->
+<div class="profile-grid">
+
+    <!-- Edit Info -->
+    <div class="profile-card">
+        <h2>✏️ Edit Profile</h2>
+        <div class="edit-form">
+            <div class="ef-group">
+                <label>Full Name</label>
+                <input type="text" id="ef-name" placeholder="Your name">
+            </div>
+            <div class="ef-group">
+                <label>Email</label>
+                <input type="email" id="ef-email" placeholder="your@email.com">
+            </div>
+            <div class="ef-group">
+                <label>New Password <span style="color:#aaa;font-weight:600">(leave blank to keep)</span></label>
+                <input type="password" id="ef-password" placeholder="New password">
+            </div>
+            <button class="save-btn" onclick="saveProfile()">💾 Save Changes</button>
+        </div>
+    </div>
+
+    <!-- XP Progress -->
+    <div class="profile-card">
+        <h2>⚡ XP Progress</h2>
+        <div style="font-size:.9rem;font-weight:700;color:#555;margin-bottom:4px" id="xp-lbl">0 / 100 XP</div>
+        <div class="xp-bar-wrap"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+        <div class="xp-row">
+            <span id="xp-level-lbl">Level 1</span>
+            <span id="xp-next-lbl">Level 2</span>
+        </div>
+        <div style="margin-top:20px">
+            <h2>📅 Member Since</h2>
+            <div style="font-size:1.1rem;font-weight:700;color:var(--primary-blue)" id="join-date">—</div>
+        </div>
+        <div style="margin-top:20px">
+            <h2>🕐 Last Login</h2>
+            <div style="font-size:1rem;font-weight:700;color:#888" id="last-login">—</div>
+        </div>
+    </div>
+
+    <!-- Avatar Picker -->
+    <div class="profile-card" id="avatar-picker-card">
+        <h2>🎭 Change Avatar</h2>
+        <div class="avatar-picker" id="avatar-picker">
+            <div class="av-opt" data-emoji="🐍" onclick="pickAvatar(this)">🐍</div>
+            <div class="av-opt" data-emoji="🦊" onclick="pickAvatar(this)">🦊</div>
+            <div class="av-opt" data-emoji="🐸" onclick="pickAvatar(this)">🐸</div>
+            <div class="av-opt" data-emoji="🦁" onclick="pickAvatar(this)">🦁</div>
+            <div class="av-opt" data-emoji="🐧" onclick="pickAvatar(this)">🐧</div>
+            <div class="av-opt" data-emoji="🤖" onclick="pickAvatar(this)">🤖</div>
+            <div class="av-opt" data-emoji="🦄" onclick="pickAvatar(this)">🦄</div>
+            <div class="av-opt" data-emoji="🐉" onclick="pickAvatar(this)">🐉</div>
+            <div class="av-opt" data-emoji="🐻" onclick="pickAvatar(this)">🐻</div>
+            <div class="av-opt" data-emoji="🦅" onclick="pickAvatar(this)">🦅</div>
+            <div class="av-opt" data-emoji="🦋" onclick="pickAvatar(this)">🦋</div>
+            <div class="av-opt" data-emoji="🐬" onclick="pickAvatar(this)">🐬</div>
+        </div>
+    </div>
+
+    <!-- Completed Chapters -->
+    <div class="profile-card">
+        <h2>📚 Chapters Progress</h2>
+        <div class="ch-list" id="ch-list"></div>
+    </div>
+
+    <!-- Danger Zone -->
+    <div class="profile-card" style="grid-column:1/-1">
+        <h2 style="color:#ff4b4b">🚪 Logout</h2>
+        <p style="font-size:.9rem;color:#888;font-weight:600;margin-bottom:14px">
+            Come back soon and keep learning!
+        </p>
+        <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </div>
+
+</div>
+
+<div class="toast" id="toast">✅ Profile saved!</div>
+
+<script src="auth.js"></script>
+<script src="gamefy-script.js"></script>
+<script>
+    requireLogin();
+    let user = getCurrentUser();
+
+    function renderPage() {
+        // Header
+        document.getElementById("hdr-streak").textContent = user.streak;
+        document.getElementById("hdr-gems").textContent   = user.gems;
+        document.getElementById("hdr-avatar").textContent = user.avatar;
+
+        // Hero
+        document.getElementById("prof-avatar").textContent   = user.avatar;
+        document.getElementById("prof-name").textContent     = user.name;
+        document.getElementById("prof-username").textContent = "@" + user.username;
+        document.getElementById("prof-level").textContent    = "Level " + getLevel(user.xp);
+
+        // Stats
+        document.getElementById("st-xp").textContent       = user.xp;
+        document.getElementById("st-streak").textContent   = user.streak;
+        document.getElementById("st-gems").textContent     = user.gems;
+        document.getElementById("st-chapters").textContent = user.completedChapters.length + "/13";
+        document.getElementById("st-ach").textContent      = user.achievements.length;
+
+        // XP bar
+        const xpPct = user.xp % 100;
+        const lvl   = getLevel(user.xp);
+        document.getElementById("xp-fill").style.width = xpPct + "%";
+        document.getElementById("xp-lbl").textContent  = (user.xp % 100) + " / 100 XP this level";
+        document.getElementById("xp-level-lbl").textContent = "Level " + lvl;
+        document.getElementById("xp-next-lbl").textContent  = "Level " + (lvl + 1);
+
+        // Dates
+        document.getElementById("join-date").textContent  = user.joinDate;
+        document.getElementById("last-login").textContent = new Date(user.lastLogin).toLocaleString();
+
+        // Edit form prefill
+        document.getElementById("ef-name").value  = user.name;
+        document.getElementById("ef-email").value = user.email;
+
+        // Avatar picker
+        document.querySelectorAll(".av-opt").forEach(el => {
+            el.classList.toggle("selected", el.dataset.emoji === user.avatar);
+        });
+
+        // Chapters list
+        const chList = document.getElementById("ch-list");
+        chList.innerHTML = "";
+        const chapterNames = ["Intro to Python","Variables & Data Types","Input & Output","Operators",
+            "Conditional Statements","Loops","Strings","Lists","Tuples & Sets",
+            "Dictionaries","Functions","Modules & Libraries","File Handling"];
+        chapterNames.forEach((name, i) => {
+            const done = user.completedChapters.includes(i + 1);
+            chList.innerHTML += `<span class="ch-chip ${done ? '' : 'locked'}">${done ? '✅' : '🔒'} ${i+1}. ${name}</span>`;
+        });
+    }
+
+    function pickAvatar(el) {
+        document.querySelectorAll(".av-opt").forEach(a => a.classList.remove("selected"));
+        el.classList.add("selected");
+        user.avatar = el.dataset.emoji;
+        document.getElementById("prof-avatar").textContent = user.avatar;
+        document.getElementById("hdr-avatar").textContent  = user.avatar;
+        updateUser(user);
+        showToast("Avatar updated!");
+    }
+
+    function saveProfile() {
+        const name     = document.getElementById("ef-name").value.trim();
+        const email    = document.getElementById("ef-email").value.trim();
+        const password = document.getElementById("ef-password").value;
+        if (!name || !email) { showToast("Name and email are required!"); return; }
+        user.name  = name;
+        user.email = email;
+        if (password.length >= 5) user.password = password;
+        updateUser(user);
+        renderPage();
+        showToast("Profile saved! 🎉");
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2500);
+    }
+
+    function scrollToAvatarPicker() {
+        document.getElementById("avatar-picker-card").scrollIntoView({ behavior:"smooth" });
+    }
+
+    renderPage();
+</script>
+</body>
+</html>

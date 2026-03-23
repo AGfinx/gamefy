@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAMEFY - Learn Through Play</title>
+    <link rel="stylesheet" href="gamefy-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* ── Extra home-page styles ── */
+        .stats-bar {
+            background:var(--white); padding:1.5rem 2rem;
+            display:flex; justify-content:center; gap:3rem; flex-wrap:wrap;
+            box-shadow:0 4px 12px rgba(0,0,0,.08);
+        }
+        .stat-item { text-align:center; }
+        .stat-item .stat-num { font-size:2rem; font-weight:800; color:var(--primary-green); display:block; }
+        .stat-item .stat-lbl { font-size:.85rem; color:#888; font-weight:600; }
+
+        /* Welcome banner */
+        .welcome-banner {
+            background:linear-gradient(135deg,#ffc800,#ff9800);
+            padding:14px 24px; text-align:center;
+            font-weight:800; font-size:1.05rem; color:#3c3c3c;
+            display:flex; align-items:center; justify-content:center; gap:10px;
+        }
+
+        /* Quick-action cards */
+        .quick-cards {
+            max-width:1100px; margin:3rem auto; padding:0 2rem;
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:1.5rem;
+        }
+        .quick-card {
+            background:var(--white); border-radius:18px;
+            padding:28px 24px; text-align:center;
+            box-shadow:0 8px 0 #ddd, 0 12px 24px rgba(0,0,0,.08);
+            transition:.25s; cursor:pointer; text-decoration:none; color:var(--text-dark);
+        }
+        .quick-card:hover { transform:translateY(-5px); box-shadow:0 12px 0 #ddd,0 18px 32px rgba(0,0,0,.12); }
+        .quick-card .qc-icon { font-size:3rem; margin-bottom:12px; display:block; }
+        .quick-card h3 { font-size:1.15rem; font-weight:800; margin-bottom:6px; }
+        .quick-card p  { font-size:.875rem; color:#888; font-weight:600; }
+        .qc-green  { border-top:5px solid var(--primary-green); }
+        .qc-blue   { border-top:5px solid var(--primary-blue); }
+        .qc-yellow { border-top:5px solid var(--primary-yellow); }
+        .qc-purple { border-top:5px solid var(--primary-purple); }
+
+        /* Progress section */
+        .progress-section {
+            max-width:1100px; margin:0 auto 3rem; padding:0 2rem;
+        }
+        .section-title { font-size:1.6rem; font-weight:800; color:var(--text-dark); margin-bottom:1.2rem; }
+        .progress-card {
+            background:var(--white); border-radius:18px; padding:24px 28px;
+            box-shadow:0 4px 16px rgba(0,0,0,.08);
+        }
+        .progress-row { display:flex; align-items:center; gap:16px; margin-bottom:12px; }
+        .progress-label { font-weight:700; font-size:.95rem; color:var(--text-dark); min-width:160px; }
+        .progress-bar-wrap {
+            flex:1; background:#f0f0f0; border-radius:50px; height:14px; overflow:hidden;
+        }
+        .progress-fill {
+            height:100%; border-radius:50px;
+            background:linear-gradient(90deg,var(--primary-green),var(--light-green));
+            transition:width .6s ease;
+        }
+        .progress-pct { font-weight:800; font-size:.95rem; color:var(--primary-green); min-width:42px; text-align:right; }
+
+        /* Recent achievements strip */
+        .achievement-strip {
+            display:flex; gap:14px; flex-wrap:wrap; margin-top:16px;
+        }
+        .ach-badge {
+            background:#f7f7f7; border-radius:12px; padding:10px 16px;
+            display:flex; align-items:center; gap:10px;
+            font-weight:700; font-size:.9rem; border:2px solid #eee;
+        }
+        .ach-badge .ach-icon { font-size:1.5rem; }
+
+        /* Responsive */
+        @media(max-width:600px) {
+            .stats-bar { gap:1.5rem; }
+            .section-title { font-size:1.3rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Welcome Banner -->
+<div class="welcome-banner" id="welcome-banner" style="display:none">
+    <span id="welcome-text">👋 Welcome back!</span>
+    <a href="profile.html" style="color:var(--primary-blue);text-decoration:none;font-size:.9rem;">
+        View Profile →
+    </a>
+</div>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <i class="fas fa-gamepad"></i>
+            <span>GAMEFY</span>
+        </div>
+
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link active">Home</a></li>
+                <li><a href="Learn.html" class="nav-link">Learn</a></li>
+                <li><a href="games.html" class="nav-link">Games</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="profile.html" class="nav-link">Profile</a></li>
+            </ul>
+        </nav>
+
+        <div class="user-section">
+            <div class="streak-display">
+                <i class="fas fa-fire"></i>
+                <span id="hdr-streak">0</span>
+            </div>
+            <div class="gems-display">
+                <i class="fas fa-gem"></i>
+                <span id="hdr-gems">0</span>
+            </div>
+            <div class="user-avatar" id="hdr-avatar" onclick="window.location.href='profile.html'" title="Profile">
+                🐍
+            </div>
+        </div>
+
+        <div class="mobile-menu-toggle">
+            <span></span><span></span><span></span>
+        </div>
+    </div>
+</header>
+
+<!-- Stats Bar -->
+<div class="stats-bar">
+    <div class="stat-item"><span class="stat-num" id="stat-chapters">0</span><span class="stat-lbl">Chapters Done</span></div>
+    <div class="stat-item"><span class="stat-num" id="stat-xp">0</span><span class="stat-lbl">Total XP</span></div>
+    <div class="stat-item"><span class="stat-num" id="stat-level">1</span><span class="stat-lbl">Level</span></div>
+    <div class="stat-item"><span class="stat-num" id="stat-ach">0</span><span class="stat-lbl">Achievements</span></div>
+</div>
+
+<!-- Main Content -->
+<main class="main-content" style="flex-direction:column;align-items:stretch;min-height:auto;">
+
+    <!-- Hero -->
+    <section class="hero-section">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="title-highlight">Learn Through Play!</span>
+            </h1>
+            <p class="hero-subtitle">Master Python one chapter at a time 🐍</p>
+            <div class="cta-buttons">
+                <button class="btn-primary" onclick="continueLearning()">
+                    <i class="fas fa-play"></i> Continue Learning
+                </button>
+                <button class="btn-secondary" onclick="window.location.href='achievements.html'">
+                    <i class="fas fa-trophy"></i> My Achievements
+                </button>
+            </div>
+        </div>
+        <div class="hero-graphics">
+            <div class="floating-owl">🐍</div>
+            <div class="floating-star star-1"><i class="fas fa-star"></i></div>
+            <div class="floating-star star-2"><i class="fas fa-star"></i></div>
+            <div class="floating-star star-3"><i class="fas fa-star"></i></div>
+        </div>
+    </section>
+
+    <!-- Quick Action Cards -->
+    <div class="quick-cards">
+        <a href="#" onclick="continueLearning(); return false;" class="quick-card qc-green">
+            <span class="qc-icon">📚</span>
+            <h3>Keep Learning</h3>
+            <p>Continue your Python journey</p>
+        </a>
+        <a href="achievements.html" class="quick-card qc-yellow">
+            <span class="qc-icon">🏆</span>
+            <h3>Achievements</h3>
+            <p>See your badges & rewards</p>
+        </a>
+        <a href="profile.html" class="quick-card qc-blue">
+            <span class="qc-icon">👤</span>
+            <h3>My Profile</h3>
+            <p>View stats & settings</p>
+        </a>
+        <div class="quick-card qc-purple" onclick="logout()">
+            <span class="qc-icon">🚪</span>
+            <h3>Logout</h3>
+            <p>See you next time!</p>
+        </div>
+    </div>
+
+    <!-- Learning Progress -->
+    <div class="progress-section">
+        <div class="section-title">📊 Your Progress</div>
+        <div class="progress-card">
+            <div class="progress-row">
+                <span class="progress-label">Overall Progress</span>
+                <div class="progress-bar-wrap">
+                    <div class="progress-fill" id="prog-overall" style="width:0%"></div>
+                </div>
+                <span class="progress-pct" id="prog-overall-pct">0%</span>
+            </div>
+            <div class="progress-row">
+                <span class="progress-label">XP to Next Level</span>
+                <div class="progress-bar-wrap">
+                    <div class="progress-fill" id="prog-xp"
+                         style="width:0%;background:linear-gradient(90deg,#1cb0f6,#4cc9f0)"></div>
+                </div>
+                <span class="progress-pct" id="prog-xp-pct" style="color:var(--primary-blue)">0%</span>
+            </div>
+
+            <!-- Recent achievements -->
+            <div id="recent-ach-wrap" style="display:none;margin-top:20px;">
+                <div style="font-weight:800;font-size:.95rem;margin-bottom:10px;color:var(--text-dark)">
+                    🏅 Recent Achievements
+                </div>
+                <div class="achievement-strip" id="recent-ach"></div>
+            </div>
+        </div>
+    </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="upper-footer">
+    <div class="footer-container">
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul class="quick-links">
+                <li><a href="Learn.html"><i class="fas fa-book"></i> Learning Path</a></li>
+                <li><a href="achievements.html"><i class="fas fa-trophy"></i> Achievements</a></li>
+                <li><a href="profile.html"><i class="fas fa-user"></i> Profile</a></li>
+            </ul>
+        </div>
+        <div class="footer-section">
+            <h3>Follow Us</h3>
+            <div class="social-media">
+                <a href="#" class="social-icon facebook"><i class="fab fa-facebook-f"></i></a>
+                <a href="#" class="social-icon twitter"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon instagram"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="social-icon youtube"><i class="fab fa-youtube"></i></a>
+                <a href="#" class="social-icon discord"><i class="fab fa-discord"></i></a>
+            </div>
+        </div>
+        <div class="footer-section">
+            <h3>Contact Us</h3>
+            <form class="contact-form" onsubmit="handleContact(event)">
+                <div class="form-group"><input type="text" placeholder="Your Name" required></div>
+                <div class="form-group"><input type="email" placeholder="Your Email" required></div>
+                <div class="form-group"><textarea placeholder="Your Message..." rows="3" required></textarea></div>
+                <button type="submit" class="submit-btn" id="contact-btn">
+                    <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+            </form>
+        </div>
+    </div>
+</footer>
+<footer class="base-footer">
+    <div class="base-footer-container">
+        <p>&copy; 2024 GAMEFY.COM. All rights reserved. |
+            <a href="login.html" style="color:var(--primary-blue)">Logout</a>
+        </p>
+    </div>
+</footer>
+
+<script src="auth.js"></script>
+<script src="gamefy-script.js"></script>
+<script>
+    requireLogin();
+
+    const user = getCurrentUser();
+
+    // Welcome banner
+    document.getElementById("welcome-banner").style.display = "flex";
+    document.getElementById("welcome-text").textContent = "👋 Welcome back, " + user.name + "!";
+
+    // Header stats
+    document.getElementById("hdr-streak").textContent = user.streak;
+    document.getElementById("hdr-gems").textContent = user.gems;
+    document.getElementById("hdr-avatar").textContent = user.avatar;
+
+    // Stats bar
+    const level = getLevel(user.xp);
+    document.getElementById("stat-chapters").textContent = user.completedChapters.length;
+    document.getElementById("stat-xp").textContent = user.xp;
+    document.getElementById("stat-level").textContent = level;
+    document.getElementById("stat-ach").textContent = user.achievements.length;
+
+    // Progress bars
+    const overallPct = Math.round((user.completedChapters.length / 13) * 100);
+    document.getElementById("prog-overall").style.width = overallPct + "%";
+    document.getElementById("prog-overall-pct").textContent = overallPct + "%";
+
+    const xpPct = (user.xp % 100);
+    document.getElementById("prog-xp").style.width = xpPct + "%";
+    document.getElementById("prog-xp-pct").textContent = xpPct + "%";
+
+    // Recent achievements
+    if (user.achievements.length > 0) {
+        document.getElementById("recent-ach-wrap").style.display = "block";
+        const strip = document.getElementById("recent-ach");
+        user.achievements.slice(-4).forEach(achId => {
+            const ach = ALL_ACHIEVEMENTS.find(a => a.id === achId);
+            if (ach) {
+                strip.innerHTML += `<div class="ach-badge">
+                    <span class="ach-icon">${ach.icon}</span>
+                    <span>${ach.title}</span>
+                </div>`;
+            }
+        });
+    }
+
+    function handleContact(e) {
+        e.preventDefault();
+        const btn = document.getElementById("contact-btn");
+        btn.innerHTML = '<i class="fas fa-check"></i> Sent!';
+        btn.style.background = '#58cc02';
+        e.target.reset();
+        setTimeout(() => {
+            btn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+            btn.style.background = '';
+        }, 3000);
+    }
+</script>
+</body>
+</html>

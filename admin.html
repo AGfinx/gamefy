@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAMEFY – Admin Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --green:#58cc02; --blue:#1cb0f6; --yellow:#ffc800;
+            --red:#ff4b4b; --purple:#ce82ff; --bg:#f0f2f5;
+            --white:#fff; --text:#3c3c3c; --sidebar:#1a1a2e;
+        }
+        body { font-family:'Nunito',sans-serif; background:var(--bg); min-height:100vh; }
+
+        /* ── LOGIN SCREEN ── */
+        #admin-login-screen {
+            min-height:100vh; display:flex; align-items:center; justify-content:center;
+            background:linear-gradient(135deg,#1a1a2e,#16213e);
+        }
+        .admin-login-card {
+            background:var(--white); border-radius:20px; padding:40px;
+            width:100%; max-width:400px; box-shadow:0 20px 60px rgba(0,0,0,.4);
+        }
+        .admin-login-card h1 {
+            font-size:1.8rem; font-weight:800; margin-bottom:6px; color:var(--text);
+            display:flex; align-items:center; gap:10px;
+        }
+        .admin-login-card p { color:#888; font-size:.9rem; margin-bottom:24px; font-weight:600; }
+        .al-group { margin-bottom:16px; }
+        .al-group label { display:block; font-weight:700; font-size:.9rem; color:#555; margin-bottom:6px; }
+        .al-group input {
+            width:100%; padding:12px 14px; border:2px solid #e8e8e8; border-radius:12px;
+            font-family:'Nunito',sans-serif; font-size:1rem; outline:none; transition:.2s;
+        }
+        .al-group input:focus { border-color:var(--blue); }
+        .al-btn {
+            width:100%; padding:13px; border:none; border-radius:12px;
+            background:linear-gradient(135deg,#1a1a2e,#4361ee); color:white;
+            font-family:'Nunito',sans-serif; font-weight:800; font-size:1rem;
+            cursor:pointer; transition:.2s; margin-top:4px;
+        }
+        .al-btn:hover { opacity:.9; transform:translateY(-1px); }
+        .al-err { color:var(--red); font-weight:700; font-size:.9rem; margin-top:10px; display:none; }
+        .al-err.show { display:block; }
+        .back-link { text-align:center; margin-top:16px; }
+        .back-link a { color:var(--blue); font-weight:700; font-size:.9rem; text-decoration:none; }
+
+        /* ── ADMIN DASHBOARD ── */
+        #admin-dashboard { display:none; min-height:100vh; }
+
+        /* Topbar */
+        .admin-topbar {
+            background:var(--sidebar); color:white;
+            padding:16px 28px; display:flex; align-items:center;
+            justify-content:space-between; box-shadow:0 4px 16px rgba(0,0,0,.3);
+        }
+        .admin-topbar .logo { font-size:1.4rem; font-weight:800; display:flex; align-items:center; gap:10px; }
+        .admin-topbar .logo span { color:var(--yellow); }
+        .admin-topbar .topbar-right { display:flex; align-items:center; gap:16px; }
+        .admin-badge {
+            background:var(--yellow); color:#3c3c3c; padding:4px 14px;
+            border-radius:20px; font-weight:800; font-size:.85rem;
+        }
+        .topbar-logout {
+            background:#ff4b4b; color:white; border:none; padding:8px 18px;
+            border-radius:10px; cursor:pointer; font-family:'Nunito',sans-serif;
+            font-weight:700; transition:.2s;
+        }
+        .topbar-logout:hover { opacity:.85; }
+
+        /* Summary cards */
+        .admin-summary {
+            display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+            gap:1.2rem; padding:2rem 2rem 0;
+        }
+        .sum-card {
+            background:white; border-radius:16px; padding:20px 18px;
+            box-shadow:0 4px 16px rgba(0,0,0,.06); border-left:5px solid var(--green);
+        }
+        .sum-card.blue  { border-color:var(--blue); }
+        .sum-card.yellow{ border-color:var(--yellow); }
+        .sum-card.red   { border-color:var(--red); }
+        .sum-card .val  { font-size:2rem; font-weight:800; color:var(--text); display:block; }
+        .sum-card .lbl  { font-size:.85rem; color:#888; font-weight:600; }
+
+        /* Main content area */
+        .admin-content { padding:2rem; }
+        .section-title {
+            font-size:1.3rem; font-weight:800; color:var(--text);
+            margin-bottom:1rem; display:flex; align-items:center; gap:8px;
+        }
+
+        /* Search & filter bar */
+        .search-bar {
+            display:flex; gap:10px; margin-bottom:1.2rem; flex-wrap:wrap;
+        }
+        .search-bar input {
+            flex:1; min-width:180px; padding:10px 16px; border:2px solid #e8e8e8;
+            border-radius:10px; font-family:'Nunito',sans-serif; font-size:.95rem;
+            outline:none; transition:.2s;
+        }
+        .search-bar input:focus { border-color:var(--blue); }
+        .search-bar button {
+            padding:10px 20px; border:none; border-radius:10px; cursor:pointer;
+            font-family:'Nunito',sans-serif; font-weight:700; font-size:.9rem;
+            transition:.2s;
+        }
+        .btn-add { background:var(--green); color:white; }
+        .btn-add:hover { background:#46a300; }
+
+        /* Users table */
+        .table-wrap { background:white; border-radius:16px; box-shadow:0 4px 16px rgba(0,0,0,.06); overflow:auto; }
+        table { width:100%; border-collapse:collapse; }
+        thead tr { background:#f7f7f7; }
+        th { padding:14px 16px; text-align:left; font-size:.85rem; font-weight:800; color:#888; border-bottom:2px solid #f0f0f0; white-space:nowrap; }
+        td { padding:14px 16px; border-bottom:1px solid #f5f5f5; font-size:.9rem; font-weight:600; color:var(--text); vertical-align:middle; }
+        tr:hover td { background:#fafafa; }
+
+        .avatar-cell { font-size:1.5rem; }
+        .badge-green { background:#f0fff4; color:var(--green); padding:4px 10px; border-radius:20px; font-size:.8rem; font-weight:700; }
+        .badge-red   { background:#fff0f0; color:var(--red);   padding:4px 10px; border-radius:20px; font-size:.8rem; font-weight:700; }
+
+        .action-btn {
+            padding:6px 12px; border:none; border-radius:8px; cursor:pointer;
+            font-family:'Nunito',sans-serif; font-weight:700; font-size:.8rem;
+            transition:.2s; margin-right:4px;
+        }
+        .btn-edit   { background:#e8f4ff; color:var(--blue); }
+        .btn-edit:hover { background:var(--blue); color:white; }
+        .btn-delete { background:#fff0f0; color:var(--red); }
+        .btn-delete:hover { background:var(--red); color:white; }
+        .btn-reset  { background:#fff8e0; color:#a07800; }
+        .btn-reset:hover { background:var(--yellow); color:#3c3c3c; }
+
+        /* Modal */
+        .modal-overlay {
+            position:fixed; inset:0; background:rgba(0,0,0,.5);
+            display:none; align-items:center; justify-content:center; z-index:9999;
+        }
+        .modal-overlay.open { display:flex; }
+        .modal {
+            background:white; border-radius:20px; padding:32px; width:100%; max-width:460px;
+            box-shadow:0 20px 60px rgba(0,0,0,.3); position:relative;
+        }
+        .modal h2 { font-size:1.4rem; font-weight:800; margin-bottom:20px; }
+        .modal-close {
+            position:absolute; top:16px; right:16px; background:#f0f0f0;
+            border:none; width:32px; height:32px; border-radius:50%;
+            font-size:1.1rem; cursor:pointer; font-weight:700;
+        }
+        .m-group { margin-bottom:14px; }
+        .m-group label { display:block; font-size:.85rem; font-weight:700; color:#555; margin-bottom:5px; }
+        .m-group input, .m-group select {
+            width:100%; padding:10px 14px; border:2px solid #e8e8e8; border-radius:10px;
+            font-family:'Nunito',sans-serif; font-size:.95rem; outline:none; transition:.2s;
+        }
+        .m-group input:focus, .m-group select:focus { border-color:var(--blue); }
+        .modal-actions { display:flex; gap:10px; margin-top:16px; }
+        .modal-save { flex:1; padding:12px; background:var(--green); color:white; border:none;
+            border-radius:10px; font-family:'Nunito',sans-serif; font-weight:800; font-size:1rem;
+            cursor:pointer; transition:.2s; }
+        .modal-save:hover { background:#46a300; }
+        .modal-cancel { flex:1; padding:12px; background:#f0f0f0; color:#888; border:none;
+            border-radius:10px; font-family:'Nunito',sans-serif; font-weight:800; font-size:1rem;
+            cursor:pointer; }
+
+        /* Toast */
+        .toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%);
+            background:#58cc02; color:white; padding:12px 28px; border-radius:50px;
+            font-weight:800; z-index:99999; opacity:0; transition:.3s; pointer-events:none; }
+        .toast.show { opacity:1; }
+    </style>
+</head>
+<body>
+
+<!-- ── ADMIN LOGIN ── -->
+<div id="admin-login-screen">
+    <div class="admin-login-card">
+        <h1>🛡️ Admin Panel</h1>
+        <p>GAMEFY – Admin access only</p>
+        <div class="al-group">
+            <label>Admin Username</label>
+            <input type="text" id="al-user" placeholder="admin" autocomplete="off">
+        </div>
+        <div class="al-group">
+            <label>Admin Password</label>
+            <input type="password" id="al-pass" placeholder="••••••••">
+        </div>
+        <button class="al-btn" onclick="adminLogin()">🔐 Login as Admin</button>
+        <div class="al-err" id="al-err">❌ Invalid credentials.</div>
+        <div class="back-link"><a href="login.html">← Back to User Login</a></div>
+    </div>
+</div>
+
+<!-- ── ADMIN DASHBOARD ── -->
+<div id="admin-dashboard">
+
+    <!-- Topbar -->
+    <div class="admin-topbar">
+        <div class="logo">🎮 <span>GAMEFY</span> Admin</div>
+        <div class="topbar-right">
+            <span class="admin-badge">🛡️ Admin</span>
+            <button class="topbar-logout" onclick="adminLogout()">Logout</button>
+        </div>
+    </div>
+
+    <!-- Summary Cards -->
+    <div class="admin-summary">
+        <div class="sum-card"><span class="val" id="s-users">0</span><span class="lbl">👥 Total Users</span></div>
+        <div class="sum-card blue"><span class="val" id="s-chapters">0</span><span class="lbl">📚 Total Chapters Done</span></div>
+        <div class="sum-card yellow"><span class="val" id="s-xp">0</span><span class="lbl">⚡ Total XP Earned</span></div>
+        <div class="sum-card red"><span class="val" id="s-ach">0</span><span class="lbl">🏆 Achievements Earned</span></div>
+    </div>
+
+    <!-- Users Table -->
+    <div class="admin-content">
+        <div class="section-title">👥 User Management</div>
+        <div class="search-bar">
+            <input type="text" id="search-input" placeholder="🔍 Search by name or username…" oninput="renderTable()">
+            <button class="btn-add" onclick="openAddModal()">➕ Add User</button>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Avatar</th>
+                        <th>Name</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Level</th>
+                        <th>XP</th>
+                        <th>Gems</th>
+                        <th>Streak</th>
+                        <th>Chapters</th>
+                        <th>Joined</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="users-tbody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Edit / Add Modal -->
+<div class="modal-overlay" id="user-modal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeModal()">✕</button>
+        <h2 id="modal-title">Edit User</h2>
+        <input type="hidden" id="m-id">
+        <div class="m-group"><label>Full Name</label><input type="text" id="m-name" placeholder="Full name"></div>
+        <div class="m-group"><label>Username</label><input type="text" id="m-username" placeholder="username"></div>
+        <div class="m-group"><label>Email</label><input type="email" id="m-email" placeholder="email@example.com"></div>
+        <div class="m-group"><label>Password</label><input type="password" id="m-password" placeholder="Leave blank to keep"></div>
+        <div class="m-group">
+            <label>Avatar</label>
+            <select id="m-avatar">
+                <option>🐍</option><option>🦊</option><option>🐸</option><option>🦁</option>
+                <option>🐧</option><option>🤖</option><option>🦄</option><option>🐉</option>
+                <option>🐻</option><option>🦅</option><option>🦋</option><option>🐬</option>
+            </select>
+        </div>
+        <div class="m-group"><label>XP</label><input type="number" id="m-xp" min="0" placeholder="0"></div>
+        <div class="m-group"><label>Gems</label><input type="number" id="m-gems" min="0" placeholder="50"></div>
+        <div class="m-group"><label>Streak (days)</label><input type="number" id="m-streak" min="0" placeholder="0"></div>
+        <div class="modal-actions">
+            <button class="modal-save" onclick="saveModal()">💾 Save</button>
+            <button class="modal-cancel" onclick="closeModal()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="auth.js"></script>
+<script>
+    let adminLoggedIn = sessionStorage.getItem("gf_admin") === "true";
+    if (adminLoggedIn) showDashboard();
+
+    function adminLogin() {
+        const u = document.getElementById("al-user").value.trim();
+        const p = document.getElementById("al-pass").value;
+        if (u === ADMIN_CREDENTIALS.username && p === ADMIN_CREDENTIALS.password) {
+            sessionStorage.setItem("gf_admin", "true");
+            showDashboard();
+        } else {
+            document.getElementById("al-err").classList.add("show");
+        }
+    }
+
+    function adminLogout() {
+        sessionStorage.removeItem("gf_admin");
+        window.location.href = "login.html";
+    }
+
+    function showDashboard() {
+        document.getElementById("admin-login-screen").style.display = "none";
+        document.getElementById("admin-dashboard").style.display    = "block";
+        loadDashboard();
+    }
+
+    function loadDashboard() {
+        const users = getUsers();
+        document.getElementById("s-users").textContent    = users.length;
+        document.getElementById("s-chapters").textContent = users.reduce((s,u) => s + u.completedChapters.length, 0);
+        document.getElementById("s-xp").textContent       = users.reduce((s,u) => s + u.xp, 0);
+        document.getElementById("s-ach").textContent      = users.reduce((s,u) => s + u.achievements.length, 0);
+        renderTable();
+    }
+
+    function renderTable() {
+        const query = document.getElementById("search-input").value.toLowerCase();
+        const users = getUsers().filter(u =>
+            u.name.toLowerCase().includes(query) ||
+            u.username.toLowerCase().includes(query) ||
+            u.email.toLowerCase().includes(query)
+        );
+        const tbody = document.getElementById("users-tbody");
+        if (users.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="11" style="text-align:center;color:#aaa;padding:30px">No users found</td></tr>';
+            return;
+        }
+        tbody.innerHTML = users.map(u => `
+            <tr>
+                <td class="avatar-cell">${u.avatar}</td>
+                <td>${u.name}</td>
+                <td><span class="badge-green">@${u.username}</span></td>
+                <td>${u.email}</td>
+                <td>${getLevel(u.xp)}</td>
+                <td>${u.xp}</td>
+                <td>💎 ${u.gems}</td>
+                <td>🔥 ${u.streak}</td>
+                <td>${u.completedChapters.length}/13</td>
+                <td>${u.joinDate}</td>
+                <td>
+                    <button class="action-btn btn-edit"   onclick="openEditModal('${u.id}')">✏️ Edit</button>
+                    <button class="action-btn btn-reset"  onclick="resetProgress('${u.id}')">🔄 Reset</button>
+                    <button class="action-btn btn-delete" onclick="deleteUser('${u.id}')">🗑️ Delete</button>
+                </td>
+            </tr>`).join('');
+    }
+
+    // ── Modal ──
+    let editingId = null;
+
+    function openAddModal() {
+        editingId = null;
+        document.getElementById("modal-title").textContent = "➕ Add New User";
+        ["m-id","m-name","m-username","m-email","m-password","m-xp","m-gems","m-streak"].forEach(id => {
+            document.getElementById(id).value = "";
+        });
+        document.getElementById("m-avatar").value = "🐍";
+        document.getElementById("m-gems").value   = "50";
+        document.getElementById("user-modal").classList.add("open");
+    }
+
+    function openEditModal(id) {
+        editingId = id;
+        const u = getUsers().find(u => u.id === id);
+        document.getElementById("modal-title").textContent = "✏️ Edit User";
+        document.getElementById("m-id").value       = u.id;
+        document.getElementById("m-name").value     = u.name;
+        document.getElementById("m-username").value = u.username;
+        document.getElementById("m-email").value    = u.email;
+        document.getElementById("m-password").value = "";
+        document.getElementById("m-avatar").value   = u.avatar;
+        document.getElementById("m-xp").value       = u.xp;
+        document.getElementById("m-gems").value     = u.gems;
+        document.getElementById("m-streak").value   = u.streak;
+        document.getElementById("user-modal").classList.add("open");
+    }
+
+    function closeModal() {
+        document.getElementById("user-modal").classList.remove("open");
+    }
+
+    function saveModal() {
+        const name     = document.getElementById("m-name").value.trim();
+        const username = document.getElementById("m-username").value.trim();
+        const email    = document.getElementById("m-email").value.trim();
+        const password = document.getElementById("m-password").value;
+        const avatar   = document.getElementById("m-avatar").value;
+        const xp       = parseInt(document.getElementById("m-xp").value) || 0;
+        const gems     = parseInt(document.getElementById("m-gems").value) || 50;
+        const streak   = parseInt(document.getElementById("m-streak").value) || 0;
+        if (!name || !username || !email) { showToast("Please fill required fields!"); return; }
+
+        const users = getUsers();
+        if (editingId) {
+            const idx = users.findIndex(u => u.id === editingId);
+            users[idx].name     = name;
+            users[idx].username = username;
+            users[idx].email    = email;
+            users[idx].avatar   = avatar;
+            users[idx].xp       = xp;
+            users[idx].gems     = gems;
+            users[idx].streak   = streak;
+            if (password.length >= 5) users[idx].password = password;
+            saveUsers(users);
+            showToast("User updated! ✅");
+        } else {
+            if (users.find(u => u.username === username)) { showToast("Username taken!"); return; }
+            const newUser = {
+                id: "u" + Date.now(), username, password: password || "user123",
+                name, email, avatar, xp, gems, streak,
+                joinDate: new Date().toISOString().slice(0,10),
+                completedChapters: [], achievements: [],
+                lastLogin: new Date().toISOString()
+            };
+            users.push(newUser);
+            saveUsers(users);
+            showToast("User added! 🎉");
+        }
+        closeModal();
+        loadDashboard();
+    }
+
+    function deleteUser(id) {
+        if (!confirm("Delete this user? This cannot be undone.")) return;
+        let users = getUsers().filter(u => u.id !== id);
+        saveUsers(users);
+        showToast("User deleted.");
+        loadDashboard();
+    }
+
+    function resetProgress(id) {
+        if (!confirm("Reset this user's progress? XP, gems, chapters, and achievements will be cleared.")) return;
+        const users = getUsers();
+        const idx   = users.findIndex(u => u.id === id);
+        users[idx].xp = 0; users[idx].gems = 50; users[idx].streak = 0;
+        users[idx].completedChapters = []; users[idx].achievements = [];
+        saveUsers(users);
+        showToast("Progress reset!");
+        loadDashboard();
+    }
+
+    function showToast(msg) {
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.classList.add("show");
+        setTimeout(() => t.classList.remove("show"), 2500);
+    }
+
+    // Enter key for admin login
+    document.addEventListener("keydown", e => {
+        if (e.key === "Enter" && !adminLoggedIn) adminLogin();
+    });
+</script>
+</body>
+</html>

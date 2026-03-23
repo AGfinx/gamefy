@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAMEFY – Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * { margin:0; padding:0; box-sizing:border-box; }
+        :root {
+            --green:#58cc02; --blue:#1cb0f6; --yellow:#ffc800;
+            --red:#ff4b4b; --purple:#ce82ff; --light-green:#89e219;
+            --dark-green:#58a700; --white:#fff; --bg:#f7f7f7;
+            --text:#3c3c3c; --shadow:0 4px 12px rgba(0,0,0,.1);
+        }
+        body {
+            font-family:'Nunito',sans-serif;
+            background: linear-gradient(135deg,#58cc02,#1cb0f6);
+            min-height:100vh; display:flex; flex-direction:column;
+            align-items:center; justify-content:center; padding:20px;
+        }
+
+        /* Floating stars */
+        .star { position:fixed; color:var(--yellow); font-size:1.4rem;
+            animation:twinkle 3s ease-in-out infinite; pointer-events:none; z-index:0; }
+        @keyframes twinkle { 0%,100%{opacity:.3;transform:scale(1)} 50%{opacity:1;transform:scale(1.3)} }
+
+        .brand { text-align:center; margin-bottom:28px; z-index:1; }
+        .brand-icon { font-size:56px; display:block; animation:bounce 2s ease-in-out infinite; }
+        @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+        .brand h1 { font-size:2.6rem; font-weight:800; color:var(--white);
+            text-shadow:2px 2px 0 rgba(0,0,0,.15); letter-spacing:1px; }
+        .brand p { color:rgba(255,255,255,.9); font-size:1rem; font-weight:600; margin-top:4px; }
+
+        .card {
+            background:var(--white); border-radius:20px;
+            padding:36px 40px; width:100%; max-width:440px;
+            box-shadow:0 20px 60px rgba(0,0,0,.2); z-index:1;
+        }
+
+        /* Tabs */
+        .tabs { display:flex; background:#f0f9ff; border-radius:12px; padding:5px; margin-bottom:28px; gap:4px; }
+        .tab-btn {
+            flex:1; padding:10px; border:none; background:transparent;
+            border-radius:9px; font-family:'Nunito',sans-serif; font-weight:700;
+            font-size:1rem; cursor:pointer; color:#888; transition:.25s;
+        }
+        .tab-btn.active { background:var(--blue); color:var(--white); box-shadow:0 4px 12px rgba(28,176,246,.35); }
+
+        .form-panel { display:none; }
+        .form-panel.active { display:block; }
+
+        .form-group { margin-bottom:16px; }
+        .form-group label { display:block; font-weight:700; font-size:.9rem; color:var(--text); margin-bottom:6px; }
+        .input-wrap { position:relative; }
+        .input-wrap i { position:absolute; left:14px; top:50%; transform:translateY(-50%); color:#aaa; }
+        .input-wrap input {
+            width:100%; padding:12px 14px 12px 40px;
+            border:2px solid #e8e8e8; border-radius:12px;
+            font-family:'Nunito',sans-serif; font-size:1rem; color:var(--text);
+            transition:.25s; outline:none;
+        }
+        .input-wrap input:focus { border-color:var(--blue); box-shadow:0 0 0 3px rgba(28,176,246,.15); }
+
+        .avatar-row { display:flex; gap:10px; flex-wrap:wrap; margin-top:6px; }
+        .avatar-opt {
+            width:44px; height:44px; border-radius:50%; border:3px solid #e8e8e8;
+            background:#f7f7f7; font-size:1.5rem; display:flex; align-items:center;
+            justify-content:center; cursor:pointer; transition:.2s;
+        }
+        .avatar-opt.selected { border-color:var(--blue); background:#e8f7ff; transform:scale(1.15); }
+
+        .submit-btn {
+            width:100%; padding:14px; border:none; border-radius:14px;
+            background:linear-gradient(135deg,var(--green),var(--light-green));
+            color:var(--white); font-family:'Nunito',sans-serif; font-weight:800;
+            font-size:1.1rem; cursor:pointer; margin-top:8px;
+            box-shadow:0 6px 0 var(--dark-green); transition:.2s;
+            display:flex; align-items:center; justify-content:center; gap:8px;
+        }
+        .submit-btn:hover { transform:translateY(-2px); box-shadow:0 8px 0 var(--dark-green); }
+        .submit-btn:active { transform:translateY(2px); box-shadow:0 3px 0 var(--dark-green); }
+
+        .error-msg { background:#fff0f0; color:var(--red); border-radius:10px;
+            padding:10px 14px; font-weight:700; font-size:.9rem;
+            margin-bottom:14px; display:none; align-items:center; gap:8px; }
+        .error-msg.show { display:flex; }
+
+        .admin-link { text-align:center; margin-top:18px; }
+        .admin-link a { color:var(--blue); font-weight:700; font-size:.9rem; text-decoration:none; }
+        .admin-link a:hover { text-decoration:underline; }
+
+        .divider { display:flex; align-items:center; gap:12px; margin:18px 0; color:#bbb; font-size:.85rem; font-weight:600; }
+        .divider::before, .divider::after { content:''; flex:1; height:1px; background:#e8e8e8; }
+    </style>
+</head>
+<body>
+
+<!-- Floating stars -->
+<span class="star" style="top:8%;left:12%;animation-delay:0s">⭐</span>
+<span class="star" style="top:20%;right:10%;animation-delay:.8s">🌟</span>
+<span class="star" style="bottom:25%;left:8%;animation-delay:1.6s">⭐</span>
+<span class="star" style="bottom:15%;right:15%;animation-delay:2.4s">🌟</span>
+<span class="star" style="top:50%;left:5%;animation-delay:.4s">⭐</span>
+
+<div class="brand">
+    <span class="brand-icon">🎮</span>
+    <h1>GAMEFY</h1>
+    <p>Learn Python. Level Up. Have Fun.</p>
+</div>
+
+<div class="card">
+    <div class="tabs">
+        <button class="tab-btn active" onclick="showTab('login')">
+            <i class="fas fa-sign-in-alt"></i> Login
+        </button>
+        <button class="tab-btn" onclick="showTab('signup')">
+            <i class="fas fa-user-plus"></i> Sign Up
+        </button>
+    </div>
+
+    <!-- LOGIN FORM -->
+    <div class="form-panel active" id="panel-login">
+        <div class="error-msg" id="login-error"><i class="fas fa-exclamation-circle"></i> <span id="login-error-msg"></span></div>
+        <div class="form-group">
+            <label>Username</label>
+            <div class="input-wrap">
+                <i class="fas fa-user"></i>
+                <input type="text" id="login-username" placeholder="Enter your username" autocomplete="username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <div class="input-wrap">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="login-password" placeholder="Enter your password" autocomplete="current-password">
+            </div>
+        </div>
+        <button class="submit-btn" onclick="doLogin()">
+            <i class="fas fa-play"></i> Let's Go!
+        </button>
+
+        <div class="divider">or</div>
+        <div class="admin-link">
+            <a href="admin.html"><i class="fas fa-shield-alt"></i> Admin Login</a>
+        </div>
+    </div>
+
+    <!-- SIGNUP FORM -->
+    <div class="form-panel" id="panel-signup">
+        <div class="error-msg" id="signup-error"><i class="fas fa-exclamation-circle"></i> <span id="signup-error-msg"></span></div>
+        <div class="form-group">
+            <label>Full Name</label>
+            <div class="input-wrap">
+                <i class="fas fa-id-card"></i>
+                <input type="text" id="signup-name" placeholder="Your name">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Username</label>
+            <div class="input-wrap">
+                <i class="fas fa-user"></i>
+                <input type="text" id="signup-username" placeholder="Choose a username">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Email</label>
+            <div class="input-wrap">
+                <i class="fas fa-envelope"></i>
+                <input type="email" id="signup-email" placeholder="your@email.com">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Password</label>
+            <div class="input-wrap">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="signup-password" placeholder="Create a password">
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Pick Your Avatar</label>
+            <div class="avatar-row" id="avatar-row">
+                <div class="avatar-opt selected" data-emoji="🐍" onclick="selectAvatar(this)">🐍</div>
+                <div class="avatar-opt" data-emoji="🦊" onclick="selectAvatar(this)">🦊</div>
+                <div class="avatar-opt" data-emoji="🐸" onclick="selectAvatar(this)">🐸</div>
+                <div class="avatar-opt" data-emoji="🦁" onclick="selectAvatar(this)">🦁</div>
+                <div class="avatar-opt" data-emoji="🐧" onclick="selectAvatar(this)">🐧</div>
+                <div class="avatar-opt" data-emoji="🤖" onclick="selectAvatar(this)">🤖</div>
+                <div class="avatar-opt" data-emoji="🦄" onclick="selectAvatar(this)">🦄</div>
+                <div class="avatar-opt" data-emoji="🐉" onclick="selectAvatar(this)">🐉</div>
+            </div>
+        </div>
+        <button class="submit-btn" onclick="doSignup()">
+            <i class="fas fa-rocket"></i> Create Account
+        </button>
+    </div>
+</div>
+
+<script src="auth.js"></script>
+<script>
+    // Redirect if already logged in
+    if (getCurrentUser()) window.location.href = "index.html";
+
+    let selectedAvatar = "🐍";
+
+    function showTab(tab) {
+        document.querySelectorAll(".tab-btn").forEach((b,i) => b.classList.toggle("active", (i===0 && tab==="login")||(i===1 && tab==="signup")));
+        document.getElementById("panel-login").classList.toggle("active", tab==="login");
+        document.getElementById("panel-signup").classList.toggle("active", tab==="signup");
+    }
+
+    function selectAvatar(el) {
+        document.querySelectorAll(".avatar-opt").forEach(a => a.classList.remove("selected"));
+        el.classList.add("selected");
+        selectedAvatar = el.dataset.emoji;
+    }
+
+    function showError(panelId, msg) {
+        document.getElementById(panelId+"-error-msg").textContent = msg;
+        document.getElementById(panelId+"-error").classList.add("show");
+        setTimeout(() => document.getElementById(panelId+"-error").classList.remove("show"), 4000);
+    }
+
+    function doLogin() {
+        const username = document.getElementById("login-username").value.trim();
+        const password = document.getElementById("login-password").value;
+        if (!username || !password) { showError("login","Please fill in all fields."); return; }
+        const result = login(username, password);
+        if (result.ok) {
+            window.location.href = "index.html";
+        } else {
+            showError("login", result.msg);
+        }
+    }
+
+    function doSignup() {
+        const name     = document.getElementById("signup-name").value.trim();
+        const username = document.getElementById("signup-username").value.trim();
+        const email    = document.getElementById("signup-email").value.trim();
+        const password = document.getElementById("signup-password").value;
+        if (!name || !username || !email || !password) { showError("signup","Please fill in all fields."); return; }
+        if (password.length < 5) { showError("signup","Password must be at least 5 characters."); return; }
+        const result = register(name, username, email, password);
+        if (result.ok) {
+            result.user.avatar = selectedAvatar;
+            updateUser(result.user);
+            setCurrentUser(result.user);
+            window.location.href = "index.html";
+        } else {
+            showError("signup", result.msg);
+        }
+    }
+
+    // Allow Enter key
+    document.addEventListener("keydown", e => {
+        if (e.key === "Enter") {
+            if (document.getElementById("panel-login").classList.contains("active")) doLogin();
+            else doSignup();
+        }
+    });
+</script>
+</body>
+</html>

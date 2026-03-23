@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GAMEFY - Chapter 13</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="gamefy-styles.css">
+    <link rel="stylesheet" href="chapter-styles.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <i class="fas fa-gamepad"></i>
+            <span>GAMEFY</span>
+        </div>
+
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="learn.html" class="nav-link active">Learn</a></li>
+                <li><a href="games.html" class="nav-link">Games</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="chapter-content">
+    <div class="chapter-card">
+
+        <h1>Chapter 13: File Handling</h1>
+
+        <div id="lesson-container">
+
+            <!-- STEP 1 -->
+            <div class="lesson-step active">
+                <p>
+                    File handling allows us to work with files stored on a computer.
+                    Instead of keeping data only in memory,
+                    we can save it permanently inside a file.
+                    Python provides built-in functions to read and write files easily.
+                </p>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>Why do we use file handling in Python?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) To delete programs</button>
+                    <button onclick="checkAnswer(this, true)">B) To store data permanently</button>
+                    <button onclick="checkAnswer(this, false)">C) To stop execution</button>
+                    <button onclick="checkAnswer(this, false)">D) To remove variables</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="lesson-step">
+                <p>
+                    To read a file, we open it using open() with mode "r".
+                    The read() function is used to get the content.
+                    After reading, it is important to close the file properly.
+                </p>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>Which mode is used to read a file?</p>
+
+                    <button onclick="checkAnswer(this, true)">A) "r"</button>
+                    <button onclick="checkAnswer(this, false)">B) "w"</button>
+                    <button onclick="checkAnswer(this, false)">C) "a"</button>
+                    <button onclick="checkAnswer(this, false)">D) "x"</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="lesson-step">
+                <p>
+                    To write data into a file, we use mode "w".
+                    If the file exists, it will overwrite the old content.
+                    We use write() to insert text into the file.
+                </p>
+            </div>
+
+            <!-- STEP 6 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>What happens when we use mode "w" on an existing file?</p>
+
+                    <button onclick="checkAnswer(this, true)">A) It overwrites the content</button>
+                    <button onclick="checkAnswer(this, false)">B) It reads the file</button>
+                    <button onclick="checkAnswer(this, false)">C) It appends new data</button>
+                    <button onclick="checkAnswer(this, false)">D) It deletes the file automatically</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 7 -->
+            <div class="lesson-step">
+                <p>
+                    To add data without deleting existing content,
+                    we use append mode "a".
+                    This adds new text at the end of the file.
+                    After finishing, we close the file using close().
+                </p>
+            </div>
+
+            <!-- STEP 8 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>Which method is used to close a file?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) end()</button>
+                    <button onclick="checkAnswer(this, true)">B) close()</button>
+                    <button onclick="checkAnswer(this, false)">C) stop()</button>
+                    <button onclick="checkAnswer(this, false)">D) finish()</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <button id="nextBtn" onclick="nextStep()" class="next-btn">Next</button>
+
+    </div>
+</main>
+<script src="auth.js"></script>
+<script src="chapter-script.js"></script>
+</body>
+</html>

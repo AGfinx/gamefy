@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GAMEFY - Chapter 7</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="gamefy-styles.css">
+    <link rel="stylesheet" href="chapter-styles.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <i class="fas fa-gamepad"></i>
+            <span>GAMEFY</span>
+        </div>
+
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="learn.html" class="nav-link active">Learn</a></li>
+                <li><a href="games.html" class="nav-link">Games</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="chapter-content">
+    <div class="chapter-card">
+
+        <h1>Chapter 7: Strings</h1>
+
+        <div id="lesson-container">
+
+            <!-- STEP 1 -->
+            <div class="lesson-step active">
+                <p>
+                    A string is used to store text in Python. 
+                    It is a sequence of characters written inside single quotes (' ') 
+                    or double quotes (" "). Everything inside the quotes becomes a string value.
+                </p>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>How do we create a string in Python?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) Using brackets</button>
+                    <button onclick="checkAnswer(this, true)">B) Using single or double quotes</button>
+                    <button onclick="checkAnswer(this, false)">C) Using numbers only</button>
+                    <button onclick="checkAnswer(this, false)">D) Using print only</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="lesson-step">
+                <p>
+                    Indexing helps us access characters inside a string.
+                    Positive indexing starts from 0.
+                    Negative indexing starts from -1 and moves backward from the end of the string.
+                </p>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>What does negative indexing do?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) Starts from the beginning</button>
+                    <button onclick="checkAnswer(this, true)">B) Starts from the end</button>
+                    <button onclick="checkAnswer(this, false)">C) Deletes characters</button>
+                    <button onclick="checkAnswer(this, false)">D) Stops the program</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="lesson-step">
+                <p>
+                    The first character of a string has index 0.
+                    We use square brackets with an index number to access a character.
+                    Example: name[0] gives the first letter.
+                </p>
+            </div>
+
+            <!-- STEP 6 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>What is the index of the first character?</p>
+
+                    <button onclick="checkAnswer(this, true)">A) 0</button>
+                    <button onclick="checkAnswer(this, false)">B) 1</button>
+                    <button onclick="checkAnswer(this, false)">C) -1</button>
+                    <button onclick="checkAnswer(this, false)">D) 10</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 7 -->
+            <div class="lesson-step">
+                <p>
+                    Python has many useful string functions like upper(), lower(), 
+                    strip(), replace(), and len().
+                    These functions help us modify or check string values easily.
+                </p>
+            </div>
+
+            <!-- STEP 8 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>What does len() do?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) Makes text uppercase</button>
+                    <button onclick="checkAnswer(this, true)">B) Returns string length</button>
+                    <button onclick="checkAnswer(this, false)">C) Deletes spaces</button>
+                    <button onclick="checkAnswer(this, false)">D) Replaces text</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <button id="nextBtn" onclick="nextStep()" class="next-btn">Next</button>
+
+    </div>
+</main>
+<script src="auth.js"></script>
+<script src="chapter-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+<!-- 
+    HOW TO ADD auth.js TO EACH CHAPTER FILE
+    =========================================
+    In every chapter HTML file (chapter1.html ... chapter13.html),
+    add these two lines BEFORE the closing </body> tag:
+
+        <script src="auth.js"></script>
+        <script src="chapter-script.js"></script>
+
+    And REMOVE any existing:
+        <script src="chapter-script.js"></script>
+
+    The auth.js MUST come first so chapter-script.js can use getCurrentUser().
+
+    Also add this to the <head> of each chapter to protect the page:
+        <script>
+            // Quick auth guard for chapters
+            if (!sessionStorage.getItem('gf_current_user')) {
+                window.location.href = 'login.html';
+            }
+        </script>
+
+    ── EXAMPLE CHAPTER STRUCTURE ──
+    See chapter-template.html for a full working example.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAMEFY – Chapter Template</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="gamefy-styles.css">
+    <link rel="stylesheet" href="chapter-styles.css">
+
+    <!-- Auth guard – redirect to login if not logged in -->
+    <script>
+        if (!sessionStorage.getItem('gf_current_user')) {
+            window.location.href = 'login.html';
+        }
+    </script>
+</head>
+<body>
+
+<!-- Header with back button -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo"><i class="fas fa-gamepad"></i><span>GAMEFY</span></div>
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="Learn.html"  class="nav-link active">Learn</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="profile.html" class="nav-link">Profile</a></li>
+            </ul>
+        </nav>
+        <div class="user-section">
+            <div class="streak-display"><i class="fas fa-fire"></i><span id="hdr-streak">0</span></div>
+            <div class="gems-display"><i class="fas fa-gem"></i><span id="hdr-gems">0</span></div>
+            <div class="user-avatar" id="hdr-avatar">🐍</div>
+        </div>
+        <div class="mobile-menu-toggle"><span></span><span></span><span></span></div>
+    </div>
+</header>
+
+<div class="chapter-content">
+    <div class="chapter-card">
+        <h1>📘 Chapter N – Chapter Title</h1>
+
+        <!-- Step 1: Info only (no quiz) -->
+        <div class="lesson-step active">
+            <p>Welcome to this chapter! Here's some information...</p>
+            <p>You can have multiple paragraphs per step.</p>
+            <button id="nextBtn" class="next-btn" onclick="nextStep()">Next →</button>
+        </div>
+
+        <!-- Step 2: Quiz step -->
+        <div class="lesson-step">
+            <p>Read this before answering:</p>
+            <div class="quiz">
+                <h3>❓ Question here?</h3>
+                <button onclick="checkAnswer(this, false)">Wrong answer</button>
+                <button onclick="checkAnswer(this, true)">Correct answer ✅</button>
+                <button onclick="checkAnswer(this, false)">Another wrong answer</button>
+                <div class="feedback"></div>
+            </div>
+            <button id="nextBtn" class="next-btn" onclick="nextStep()" disabled>Next →</button>
+        </div>
+
+        <!-- Final step -->
+        <div class="lesson-step">
+            <p>🎉 Great job! You've completed this chapter.</p>
+            <button id="nextBtn" class="next-btn" onclick="nextStep()">Finish 🎉</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- IMPORTANT: auth.js BEFORE chapter-script.js -->
+<script src="auth.js"></script>
+<script src="chapter-script.js"></script>
+<script>
+    // Show user info in header
+    const _u = getCurrentUser();
+    if (_u) {
+        document.getElementById("hdr-streak").textContent = _u.streak;
+        document.getElementById("hdr-gems").textContent   = _u.gems;
+        document.getElementById("hdr-avatar").textContent = _u.avatar;
+    }
+</script>
+</body>
+</html>

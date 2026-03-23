@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAMEFY – Achievements</title>
+    <link rel="stylesheet" href="gamefy-styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body { background:#f7f7f7; }
+
+        .page-hero {
+            background:linear-gradient(135deg,#ffc800,#ff9800);
+            padding:3rem 2rem; text-align:center;
+        }
+        .page-hero h1 { font-size:2.8rem; font-weight:800; color:#3c3c3c; margin-bottom:.5rem; }
+        .page-hero p  { font-size:1.1rem; color:#5a4000; font-weight:600; }
+
+        .ach-summary {
+            display:flex; justify-content:center; gap:2.5rem; flex-wrap:wrap;
+            background:white; padding:1.5rem 2rem;
+            box-shadow:0 4px 12px rgba(0,0,0,.08);
+        }
+        .ach-sum-item { text-align:center; }
+        .ach-sum-item .big { font-size:2rem; font-weight:800; color:var(--primary-green); display:block; }
+        .ach-sum-item .lbl { font-size:.85rem; color:#888; font-weight:600; }
+
+        .ach-grid-wrap { max-width:1100px; margin:2.5rem auto; padding:0 2rem; }
+        .ach-grid {
+            display:grid;
+            grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+            gap:1.5rem;
+        }
+
+        .ach-card {
+            background:white; border-radius:18px; padding:24px 20px;
+            box-shadow:0 6px 0 #e0e0e0, 0 10px 20px rgba(0,0,0,.07);
+            display:flex; flex-direction:column; align-items:center;
+            text-align:center; transition:.25s; position:relative;
+            border:3px solid transparent;
+        }
+        .ach-card.earned {
+            border-color:var(--primary-yellow);
+            box-shadow:0 6px 0 #c89800, 0 10px 24px rgba(255,200,0,.2);
+        }
+        .ach-card:hover { transform:translateY(-4px); }
+
+        .ach-emoji { font-size:3.5rem; margin-bottom:12px; display:block;
+            filter:grayscale(1); transition:.3s; }
+        .ach-card.earned .ach-emoji { filter:grayscale(0); }
+
+        .ach-card h3 { font-size:1.1rem; font-weight:800; margin-bottom:6px; color:#3c3c3c; }
+        .ach-card p  { font-size:.875rem; color:#888; font-weight:600; line-height:1.4; }
+
+        .ach-xp {
+            margin-top:12px; background:#f0f9ff; color:var(--primary-blue);
+            border-radius:20px; padding:4px 14px;
+            font-weight:800; font-size:.85rem;
+        }
+        .ach-card.earned .ach-xp { background:#f0fff4; color:var(--primary-green); }
+
+        .locked-badge {
+            position:absolute; top:12px; right:12px;
+            background:#eee; border-radius:20px; padding:3px 10px;
+            font-size:.75rem; font-weight:700; color:#aaa;
+        }
+        .earned-badge {
+            position:absolute; top:12px; right:12px;
+            background:var(--primary-yellow); border-radius:20px; padding:3px 10px;
+            font-size:.75rem; font-weight:700; color:#5a4000;
+        }
+
+        /* XP progress bar in summary */
+        .xp-progress-wrap {
+            max-width:500px; margin:1rem auto 0; text-align:center;
+        }
+        .xp-bar { background:#ffe4a0; border-radius:50px; height:16px; overflow:hidden; margin:8px 0; }
+        .xp-fill { height:100%; border-radius:50px;
+            background:linear-gradient(90deg,#ffc800,#ff9800); transition:width .6s; }
+        .xp-label { font-size:.85rem; font-weight:700; color:#5a4000; }
+
+        @media(max-width:600px) {
+            .page-hero h1 { font-size:2rem; }
+            .ach-grid { grid-template-columns:1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+    <div class="header-container">
+        <div class="logo"><i class="fas fa-gamepad"></i><span>GAMEFY</span></div>
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="Learn.html" class="nav-link">Learn</a></li>
+                <li><a href="games.html" class="nav-link">Games</a></li>
+                <li><a href="achievements.html" class="nav-link active">Achievements</a></li>
+                <li><a href="profile.html" class="nav-link">Profile</a></li>
+            </ul>
+        </nav>
+        <div class="user-section">
+            <div class="streak-display"><i class="fas fa-fire"></i><span id="hdr-streak">0</span></div>
+            <div class="gems-display"><i class="fas fa-gem"></i><span id="hdr-gems">0</span></div>
+            <div class="user-avatar" id="hdr-avatar" onclick="window.location.href='profile.html'">🐍</div>
+        </div>
+        <div class="mobile-menu-toggle"><span></span><span></span><span></span></div>
+    </div>
+</header>
+
+<!-- Hero -->
+<div class="page-hero">
+    <h1>🏆 Achievements</h1>
+    <p>Earn badges as you level up your Python skills!</p>
+    <div class="xp-progress-wrap">
+        <div class="xp-label" id="level-label">Level 1 · 0 XP</div>
+        <div class="xp-bar"><div class="xp-fill" id="xp-fill" style="width:0%"></div></div>
+        <div class="xp-label" id="xp-next-label">0 XP to next level</div>
+    </div>
+</div>
+
+<!-- Summary -->
+<div class="ach-summary">
+    <div class="ach-sum-item"><span class="big" id="sum-earned">0</span><span class="lbl">Earned</span></div>
+    <div class="ach-sum-item"><span class="big" id="sum-total">0</span><span class="lbl">Total</span></div>
+    <div class="ach-sum-item"><span class="big" id="sum-xp">0</span><span class="lbl">XP from Achievements</span></div>
+    <div class="ach-sum-item"><span class="big" id="sum-pct">0%</span><span class="lbl">Completion</span></div>
+</div>
+
+<!-- Grid -->
+<div class="ach-grid-wrap">
+    <div class="ach-grid" id="ach-grid"></div>
+</div>
+
+<script src="auth.js"></script>
+<script src="gamefy-script.js"></script>
+<script>
+    requireLogin();
+    const user = getCurrentUser();
+
+    // Header
+    document.getElementById("hdr-streak").textContent = user.streak;
+    document.getElementById("hdr-gems").textContent = user.gems;
+    document.getElementById("hdr-avatar").textContent = user.avatar;
+
+    // Level / XP
+    const level = getLevel(user.xp);
+    const xpPct = user.xp % 100;
+    document.getElementById("level-label").textContent = `Level ${level} · ${user.xp} XP`;
+    document.getElementById("xp-fill").style.width = xpPct + "%";
+    document.getElementById("xp-next-label").textContent = getXpForNextLevel(user.xp) + " XP to next level";
+
+    // Summary
+    const earned = user.achievements.length;
+    const total  = ALL_ACHIEVEMENTS.length;
+    const achXP  = ALL_ACHIEVEMENTS
+        .filter(a => user.achievements.includes(a.id))
+        .reduce((s,a) => s + a.xp, 0);
+    document.getElementById("sum-earned").textContent = earned;
+    document.getElementById("sum-total").textContent  = total;
+    document.getElementById("sum-xp").textContent     = achXP;
+    document.getElementById("sum-pct").textContent    = Math.round((earned/total)*100) + "%";
+
+    // Render grid (earned first)
+    const sorted = [...ALL_ACHIEVEMENTS].sort((a,b) => {
+        const ae = user.achievements.includes(a.id);
+        const be = user.achievements.includes(b.id);
+        return be - ae;
+    });
+
+    const grid = document.getElementById("ach-grid");
+    sorted.forEach(ach => {
+        const isEarned = user.achievements.includes(ach.id);
+        grid.innerHTML += `
+        <div class="ach-card ${isEarned ? 'earned' : ''}">
+            ${isEarned
+                ? '<span class="earned-badge">✅ Earned</span>'
+                : '<span class="locked-badge">🔒 Locked</span>'}
+            <span class="ach-emoji">${ach.icon}</span>
+            <h3>${ach.title}</h3>
+            <p>${ach.desc}</p>
+            <span class="ach-xp">+${ach.xp} XP</span>
+        </div>`;
+    });
+</script>
+</body>
+</html>

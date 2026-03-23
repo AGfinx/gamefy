@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GAMEFY - Chapter 8</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="gamefy-styles.css">
+    <link rel="stylesheet" href="chapter-styles.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <i class="fas fa-gamepad"></i>
+            <span>GAMEFY</span>
+        </div>
+
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="learn.html" class="nav-link active">Learn</a></li>
+                <li><a href="games.html" class="nav-link">Games</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="chapter-content">
+    <div class="chapter-card">
+
+        <h1>Chapter 8: Lists</h1>
+
+        <div id="lesson-container">
+
+            <!-- STEP 1 -->
+            <div class="lesson-step active">
+                <p>
+                    A list is used to store multiple values in one variable.
+                    Lists are created using square brackets [].
+                    They can store numbers, strings, or mixed data.
+                    Lists are ordered and changeable.
+                </p>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>How do we create a list in Python?</p>
+
+                    <button onclick="checkAnswer(this, true)">A) Using square brackets []</button>
+                    <button onclick="checkAnswer(this, false)">B) Using curly brackets {}</button>
+                    <button onclick="checkAnswer(this, false)">C) Using quotation marks</button>
+                    <button onclick="checkAnswer(this, false)">D) Using print()</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="lesson-step">
+                <p>
+                    We access list elements using indexing.
+                    Indexing starts from 0.
+                    Negative indexing starts from -1 and accesses elements from the end.
+                </p>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>What will be the output?<br><br>
+                    nums = [10, 20, 30]<br>
+                    print(nums[1])</p>
+
+                    <button onclick="checkAnswer(this, false)">A) 10</button>
+                    <button onclick="checkAnswer(this, true)">B) 20</button>
+                    <button onclick="checkAnswer(this, false)">C) 30</button>
+                    <button onclick="checkAnswer(this, false)">D) Error</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="lesson-step">
+                <p>
+                    Lists have useful methods like append(), remove(), pop(), insert(), and sort().
+                    These methods help us add, delete, or arrange items in a list.
+                </p>
+            </div>
+
+            <!-- STEP 6 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>What does this code do?<br><br>
+                    fruits = ["apple", "banana"]<br>
+                    fruits.append("mango")</p>
+
+                    <button onclick="checkAnswer(this, false)">A) Removes mango</button>
+                    <button onclick="checkAnswer(this, true)">B) Adds mango to the list</button>
+                    <button onclick="checkAnswer(this, false)">C) Sorts the list</button>
+                    <button onclick="checkAnswer(this, false)">D) Deletes banana</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 7 -->
+            <div class="lesson-step">
+                <p>
+                    We can loop through a list using a for loop.
+                    The loop runs once for each element.
+                    This helps us print or work with every item easily.
+                </p>
+            </div>
+
+            <!-- STEP 8 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>What will this code print?<br><br>
+                    numbers = [1, 2, 3]<br>
+                    for n in numbers:<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;print(n)</p>
+
+                    <button onclick="checkAnswer(this, false)">A) 1 only</button>
+                    <button onclick="checkAnswer(this, false)">B) 1 2</button>
+                    <button onclick="checkAnswer(this, true)">C) 1 2 3</button>
+                    <button onclick="checkAnswer(this, false)">D) Error</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <button id="nextBtn" onclick="nextStep()" class="next-btn">Next</button>
+
+    </div>
+</main>
+<script src="auth.js"></script>
+<script src="chapter-script.js"></script>
+</body>
+</html>

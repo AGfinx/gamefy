@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GAMEFY - Chapter 6</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="gamefy-styles.css">
+    <link rel="stylesheet" href="chapter-styles.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <i class="fas fa-gamepad"></i>
+            <span>GAMEFY</span>
+        </div>
+
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="learn.html" class="nav-link active">Learn</a></li>
+                <li><a href="games.html" class="nav-link">Games</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="chapter-content">
+    <div class="chapter-card">
+
+        <h1>Chapter 6: Loops</h1>
+
+        <div id="lesson-container">
+
+            <!-- STEP 1 -->
+            <div class="lesson-step active">
+                <p>
+                    Loops are used to repeat a block of code multiple times.
+                    Instead of writing the same code again and again, loops help automate repetition.
+                    They are very useful when working with numbers, lists, and repeated tasks.
+                </p>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>Why are loops used in programming?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) To stop programs immediately</button>
+                    <button onclick="checkAnswer(this, true)">B) To repeat a block of code</button>
+                    <button onclick="checkAnswer(this, false)">C) To delete variables</button>
+                    <button onclick="checkAnswer(this, false)">D) To install Python</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="lesson-step">
+                <p>
+                    A <code>for</code> loop is used when we know how many times we want to repeat something.
+                    It is commonly used with ranges and lists.
+                    The loop runs for each value in the sequence until it finishes.
+                </p>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>When is a for loop commonly used?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) When we want to stop the program</button>
+                    <button onclick="checkAnswer(this, true)">B) When we know how many times to repeat</button>
+                    <button onclick="checkAnswer(this, false)">C) When we want user input only</button>
+                    <button onclick="checkAnswer(this, false)">D) When there is an error</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="lesson-step">
+                <p>
+                    A <code>while</code> loop runs as long as a condition is true.
+                    It checks the condition before each repetition.
+                    If the condition becomes false, the loop stops.
+                    It is useful when the number of repetitions is not fixed.
+                </p>
+            </div>
+
+            <!-- STEP 6 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>When does a while loop stop?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) When the program ends</button>
+                    <button onclick="checkAnswer(this, true)">B) When the condition becomes false</button>
+                    <button onclick="checkAnswer(this, false)">C) When it prints something</button>
+                    <button onclick="checkAnswer(this, false)">D) It never stops</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 7 -->
+            <div class="lesson-step">
+                <p>
+                    The <code>break</code> statement stops a loop immediately.
+                    The <code>continue</code> statement skips the current iteration and moves to the next one.
+                    The <code>pass</code> statement does nothing and is used as a placeholder in code.
+                </p>
+            </div>
+
+            <!-- STEP 8 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>What does the continue statement do?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) Stops the loop completely</button>
+                    <button onclick="checkAnswer(this, true)">B) Skips current iteration and continues</button>
+                    <button onclick="checkAnswer(this, false)">C) Deletes the loop</button>
+                    <button onclick="checkAnswer(this, false)">D) Restarts the program</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <button id="nextBtn" onclick="nextStep()" class="next-btn">Next</button>
+
+    </div>
+</main>
+<script src="auth.js"></script>
+<script src="chapter-script.js"></script>
+</body>
+</html>

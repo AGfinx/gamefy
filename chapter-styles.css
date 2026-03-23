@@ -1,0 +1,125 @@
+body {
+    background-color: #1cb0f6;
+}
+
+.chapter-content {
+    min-height: calc(100vh - 80px);
+    padding: 3rem 1rem;
+    display: flex;
+    justify-content: center;
+}
+
+.chapter-card {
+    background: white;
+    max-width: 800px;
+    width: 100%;
+    padding: 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.chapter-card h1 {
+    font-size: 2.5rem;
+    color: #1cb0f6;
+    margin-bottom: 2rem;
+}
+
+.chapter-card p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin: 1rem 0;
+}
+
+.quiz {
+    margin: 1.5rem 0 2rem 0;
+    padding: 1rem;
+    background: #f4f8fb;
+    border-radius: 10px;
+}
+
+.quiz h3 {
+    margin-bottom: 0.5rem;
+}
+
+.quiz button {
+    display: block;
+    width: 100%;
+    margin: 8px 0;
+    padding: 10px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    background: #e0e7ff;
+    transition: 0.2s;
+}
+
+.quiz button:hover {
+    background: #c7d2fe;
+}
+
+.quiz button:disabled {
+    cursor: not-allowed;
+}
+
+.feedback {
+    margin-top: 8px;
+    font-weight: bold;
+}
+
+.lesson-step {
+    display: none;
+}
+
+.lesson-step.active {
+    display: block;
+}
+
+/* Align button to right */
+.next-btn {
+    display: block;
+    margin-left: auto;   /* pushes button to right */
+    margin-top: 30px;
+
+    padding: 12px 28px;
+    border-radius: 50px;   /* makes it round */
+    border: none;
+
+    font-size: 16px;
+    font-weight: 600;
+    font-family: 'Nunito', sans-serif;
+
+    background: linear-gradient(135deg, #6C63FF, #4A47D5);
+    color: white;
+
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 18px rgba(76, 71, 213, 0.3);
+}
+
+/* Hover effect */
+.next-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(76, 71, 213, 0.4);
+}
+
+/* Disabled state */
+.next-btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* Align quiz content to left */
+.quiz {
+    text-align: left;
+}
+
+/* Make options full width and left aligned */
+.quiz button {
+    display: block;          /* each button on new line */
+    width: 100%;             /* full width */
+    text-align: left;        /* text aligned left */
+    margin: 8px 0;
+    padding: 10px 14px;
+}

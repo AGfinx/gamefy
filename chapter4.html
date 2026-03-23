@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GAMEFY - Chapter 4</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="gamefy-styles.css">
+    <link rel="stylesheet" href="chapter-styles.css">
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-container">
+        <div class="logo">
+            <i class="fas fa-gamepad"></i>
+            <span>GAMEFY</span>
+        </div>
+
+        <nav class="nav-menu">
+            <ul class="nav-list">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="learn.html" class="nav-link active">Learn</a></li>
+                <li><a href="games.html" class="nav-link">Games</a></li>
+                <li><a href="achievements.html" class="nav-link">Achievements</a></li>
+                <li><a href="leaderboard.html" class="nav-link">Leaderboard</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<main class="chapter-content">
+    <div class="chapter-card">
+
+        <h1>Chapter 4: Operators in Python</h1>
+
+        <div id="lesson-container">
+
+            <!-- STEP 1 -->
+            <div class="lesson-step active">
+                <p>
+                    Arithmetic operators are used to perform mathematical calculations in Python.
+                    They allow us to add (+), subtract (-), multiply (*), divide (/),
+                    find remainder (%), calculate powers (**), and perform floor division (//).
+                    These operators are important when building programs that work with numbers.
+                </p>
+            </div>
+
+            <!-- STEP 2 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>Which operator is used for multiplication in Python?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) +</button>
+                    <button onclick="checkAnswer(this, false)">B) /</button>
+                    <button onclick="checkAnswer(this, true)">C) *</button>
+                    <button onclick="checkAnswer(this, false)">D) %</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 3 -->
+            <div class="lesson-step">
+                <p>
+                    Logical operators are used to combine multiple conditions.
+                    The three main logical operators are <code>and</code>, <code>or</code>, and <code>not</code>.
+                    They return either True or False and are mainly used inside conditional statements
+                    to control program flow.
+                </p>
+            </div>
+
+            <!-- STEP 4 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>Which logical operator returns True only if both conditions are True?</p>
+
+                    <button onclick="checkAnswer(this, true)">A) and</button>
+                    <button onclick="checkAnswer(this, false)">B) or</button>
+                    <button onclick="checkAnswer(this, false)">C) not</button>
+                    <button onclick="checkAnswer(this, false)">D) %</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+            <!-- STEP 5 -->
+            <div class="lesson-step">
+                <p>
+                    Assignment operators are used to assign and update values in variables.
+                    The basic operator is <code>=</code>.
+                    Python also provides shorthand operators like <code>+=</code>, <code>-=</code>, <code>*=</code>, and <code>/=</code>.
+                    These make code shorter and help modify values efficiently.
+                </p>
+            </div>
+
+            <!-- STEP 6 -->
+            <div class="lesson-step">
+                <div class="quiz">
+                    <p>Which operator adds a value to an existing variable?</p>
+
+                    <button onclick="checkAnswer(this, false)">A) =</button>
+                    <button onclick="checkAnswer(this, true)">B) +=</button>
+                    <button onclick="checkAnswer(this, false)">C) ==</button>
+                    <button onclick="checkAnswer(this, false)">D) //</button>
+
+                    <div class="feedback"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <button id="nextBtn" onclick="nextStep()" class="next-btn">Next</button>
+
+    </div>
+</main>
+<script src="auth.js"></script>
+<script src="chapter-script.js"></script>
+</body>
+</html>
